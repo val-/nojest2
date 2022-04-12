@@ -1,7 +1,10 @@
-FROM node:14.16.0
-WORKDIR /usr/src/app
+FROM node:14 as base
+WORKDIR /src
 COPY package*.json ./
+EXPOSE 8000
+
+FROM base as dev
+ENV NODE_ENV=development
 RUN npm install
 COPY . .
-EXPOSE 8080
-CMD [ "npm", "run", "start" ]
+CMD ["npm", "run", "dev"]

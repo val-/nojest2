@@ -1,12 +1,13 @@
 {
-  "name": "server",
+  "name": "nojest2",
   "version": "1.0.0",
-  "description": "",
-  "main": "server/server.js",
+  "description": "Nojest - simple and useful issue tracker",
+  "main": "server/index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
   },
-  "author": "",
+  "author": "Valentin Agafonov",
   "license": "ISC",
   "dependencies": {
     "express": "4.17.3",
