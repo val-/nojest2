@@ -22,7 +22,7 @@ services:
         build:
             context: ./
             target: dev
-        command: npm run dev
+        command: npm start
         depends_on:
             - db
         ports:
@@ -31,6 +31,5 @@ services:
             - ./:/usr/src/app/
             - /usr/src/app/node_modules
         environment:
-            NODE_ENV: development
             DATABASE_URL: postgres://root:root@db:5432/nojest
             PORT: 8000
