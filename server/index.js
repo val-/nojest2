@@ -6,7 +6,7 @@ const PORT = process.env.PORT;
 
 tryPostgresConnect(1).then(pgClient => {
 
-  app.use(express.static('client'));
+  app.use(express.static('client/public'));
 
   app.get('/json/users', async (req, res) => {
     const results = await pgClient
