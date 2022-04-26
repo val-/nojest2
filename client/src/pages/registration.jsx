@@ -194,32 +194,6 @@ const RegistrationPage = () => {
             type="password"
             value={formState.values.password || ''}
           />
-          <Box className={classes.formRow}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formState.values.isCustomer}
-                  onChange={handleIsCustomerChange}
-                  name="isCustomer"
-                  color="primary"
-                />
-              }
-              label="I`m customer"
-            />
-          </Box>
-          <Box className={classes.formRow}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formState.values.isContractor}
-                  onChange={handleIsContractorChange}
-                  name="isContractor"
-                  color="primary"
-                />
-              }
-              label="I`m contractor"
-            />
-          </Box>
           <Button
             className={classes.signInButton}
             disabled={!formState.values.isCustomer && !formState.values.isContractor}

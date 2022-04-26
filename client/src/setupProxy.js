@@ -1,7 +1,7 @@
 /* eslint-disable */
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
-const USE_PROXY = 'http://localhost:8080/';
+const USE_PROXY = 'http://localhost:8000/';
 
 module.exports = function(app) {
 
