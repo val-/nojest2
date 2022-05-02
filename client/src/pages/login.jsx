@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginPage = props => {
+const LoginPage = () => {
 
   const classes = useStyles();
   const [formState, setFormState] = useState({ values: {} });
@@ -67,10 +67,24 @@ const LoginPage = props => {
       loading: true,
       error: false,
     }));
-    backend.login(formState.values).then(
-      handleSuccess,
-      handleError,
-    );
+    backend.login(formState.values).then(handleSuccess, handleError);
+  };
+
+  const emailKeyDownHandler = event => {
+    if (event.ctrlKey && event.altKey) {
+      const keyNum = parseInt(event.key, 10);
+      const mockLogins = [
+        'webkoder@ya.ru',
+        'aaaaaa@test.ru',
+        'bbbbbb@test.ru',
+        'cccccc@test.ru',
+        'dddddd@test.ru',
+        'eeeeee@test.ru',
+      ];
+      if (keyNum && mockLogins[keyNum-1]) {
+        backend.login({ email: mockLogins[keyNum-1], password: '123456' }).then(handleSuccess, handleError);
+      }
+    }
   };
 
   const handleSuccess = () => {
@@ -120,9 +134,11 @@ const LoginPage = props => {
           <TextField
             className={classes.textField}
             fullWidth
+            autoFocus
             label="Email address"
             name="email"
             onChange={handleChange}
+            onKeyDown={emailKeyDownHandler}
             type="text"
             value={formState.values.email || ''}
           />

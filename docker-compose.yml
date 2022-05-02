@@ -10,7 +10,8 @@ services:
             - POSTGRES_PASSWORD=root
             - POSTGRES_DB=nojest
         volumes:
-            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./sql/mock-users.sql:/docker-entrypoint-initdb.d/mock-users.sql
     admin:
         image: adminer
         restart: always
