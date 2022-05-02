@@ -109,12 +109,6 @@ const ProfilePage = props => {
           fullName: authorizedUser.fullName,
           email: authorizedUser.email,
           phoneNumber: authorizedUser.phoneNumber || '',
-          dateOfBirth: authorizedUser.dateOfBirth || null,
-          gender: authorizedUser.gender || '',
-          country: authorizedUser.country || '',
-          city: authorizedUser.city || '',
-          isCustomer: authorizedUser.isCustomer,
-          isContractor: authorizedUser.isContractor,
         },
       }));
     }
@@ -157,16 +151,6 @@ const ProfilePage = props => {
       values: {
         ...formState.values,
         [event.target.name]: event.target.value,
-      },
-    }));
-  };
-
-  const handleDateOfBirthChange = newDate => {
-    setFormState(formState => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        dateOfBirth: newDate,
       },
     }));
   };
@@ -300,34 +284,6 @@ const ProfilePage = props => {
               onChange={handleChange}
               value={formState.values.fullName || ''}
             />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Box className={classes.formRow}>
-                  <KeyboardDatePicker
-                    className={classes.datePicker}
-                    label="Date of birth"
-                    format="dd.MM.yyyy"
-                    value={formState.values.dateOfBirth}
-                    onChange={handleDateOfBirthChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                  <FormControl className={classes.formControlSelect}>
-                    <InputLabel id="gender-select-label">Gender</InputLabel>
-                    <Select
-                      labelId="gender-select-label"
-                      id="gender-select"
-                      name="gender"
-                      className={classes.select}
-                      onChange={handleChange}
-                      value={formState.values.gender}
-                    >
-                      <MenuItem value={'MALE'}>Male</MenuItem>
-                      <MenuItem value={'FEMALE'}>Female</MenuItem>
-                    </Select>
-                  </FormControl>
-              </Box>
-            </MuiPickersUtilsProvider>
             <TextField
               className={classes.textField}
               fullWidth
@@ -346,38 +302,6 @@ const ProfilePage = props => {
               onChange={handleChange}
               value={formState.values.phoneNumber}
             />
-            <Box className={classes.formRow}>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="country-select-label">Country</InputLabel>
-                <Select
-                  labelId="country-select-label"
-                  id="country-select"
-                  name="country"
-                  className={classes.select}
-                  onChange={handleChange}
-                  value={formState.values.country}
-                >
-                  <MenuItem value={'RU'}>Russian Federation</MenuItem>
-                  <MenuItem value={'US'}>USA</MenuItem>
-                  <MenuItem value={'UK'}>United Kingdom</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="city-select-label">City</InputLabel>
-                <Select
-                  labelId="city-select-label"
-                  id="city-select"
-                  name="city"
-                  className={classes.select}
-                  onChange={handleChange}
-                  value={formState.values.city}
-                >
-                  <MenuItem value={'MOW'}>Moscow</MenuItem>
-                  <MenuItem value={'LED'}>Saint Petersburg</MenuItem>
-                  <MenuItem value={'AER'}>Sochi</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
             <Box className={classes.formRowButtons}>
               <Button
                 className={classes.saveButton}
@@ -387,22 +311,6 @@ const ProfilePage = props => {
                 variant="contained"
               >
                 Save pfofile
-              </Button>
-              <Button
-                className={classes.saveButton}
-                color="primary"
-                size="large"
-                variant="contained"
-              >
-                Add profession
-              </Button>
-              <Button
-                className={classes.saveButton}
-                color="primary"
-                size="large"
-                variant="contained"
-              >
-                Add language
               </Button>
             </Box>
           </form>

@@ -122,9 +122,7 @@ const DashboardPage = props => {
 
   return (
     <MainLayout>
-      { authorizedUserState.isCustomer && createOrderCard }
       { ordersCard }
-      { authorizedUserState.isContractor && jobsCard }
     </MainLayout>
   );
 

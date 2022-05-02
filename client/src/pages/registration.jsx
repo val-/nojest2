@@ -109,26 +109,6 @@ const RegistrationPage = () => {
     }));
   };
 
-  const handleIsCustomerChange = () => {
-    setFormState(formState => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        isCustomer: !formState.values.isCustomer,
-      },
-    }));
-  };
-
-  const handleIsContractorChange = () => {
-    setFormState(formState => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        isContractor: !formState.values.isContractor,
-      },
-    }));
-  };
-
   if (formState.loading) {
     return <ScreenLocker />;
   }
@@ -196,7 +176,6 @@ const RegistrationPage = () => {
           />
           <Button
             className={classes.signInButton}
-            disabled={!formState.values.isCustomer && !formState.values.isContractor}
             color="primary"
             fullWidth
             size="large"

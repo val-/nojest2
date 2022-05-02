@@ -9,9 +9,7 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/logo.svg';
-import AccountIcon from '@material-ui/icons/AccountBalanceWallet';
 import { backendService as backend } from '../services/backendService';
-import { utilsService as utils } from '../services/utilsService';
 import UserPicSelf from './userPicSelf';
 
 
@@ -33,9 +31,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent : 'flex-end',
     alignItems: 'center',
   },
-  rightBoxCell: {
-    paddingLeft: theme.spacing(4),
-  }
 }));
 
 const Headline = () => {
@@ -53,8 +48,7 @@ const Headline = () => {
       setUserState({
         avatar: authorizedUser.avatar,
         fullName: authorizedUser.fullName,
-        balance: authorizedUser.balance,
-        initialized: true
+        initialized: true,
       });
     }
   }, [userState]);
@@ -113,12 +107,6 @@ const Headline = () => {
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
             { userState.fullName }
-          </div>
-          <div className={classes.rightBoxCell}>
-            <IconButton>
-              <AccountIcon/>
-            </IconButton>
-            { utils.formatPrice(userState.balance) }
           </div>
         </div>
       </Toolbar>

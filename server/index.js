@@ -3,13 +3,15 @@ const session = require('express-session');
 const pg = require('pg');
 const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
+require('dotenv').config();
 
-const { tryPostgresConnect } = require('./tryPostgresConnect');
+const db = require('./config/database');
 
 const app = express();
 const PORT = process.env.PORT;
+const apiRoutes = require('./api/routes');
 
-tryPostgresConnect(1).then(pgClient => {
+db.tryPostgresConnect(1).then(() => {
 
   app.use(express.static('client/build'));
 
@@ -19,7 +21,6 @@ tryPostgresConnect(1).then(pgClient => {
   app.use(session({
       store: new pgSession({
           pool: pgPool,
-          //conString: pgPool,
           tableName: 'nj_session',
       }),
       secret: 'keyboard cat',
@@ -28,19 +29,7 @@ tryPostgresConnect(1).then(pgClient => {
       cookie: { secure: false },
   }));
 
-  app.get('/json/users', async (req, res) => {
-    const results = await pgClient
-      .query('SELECT * FROM nj_user')
-      .then((payload) => {
-        return payload.rows;
-      })
-      .catch(() => {
-        throw new Error('Query failed');
-      });
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200);
-    res.send(JSON.stringify(results));
-  });
+  app.use('/api', apiRoutes);
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + './../client/build/index.html'));
