@@ -9,10 +9,10 @@ const registration = require('./handlers/registration');
 const activation = require('./handlers/activation');
 const updateProfile = require('./handlers/updateProfile');
 const uploadAvatar = require('./handlers/uploadAvatar');
+const createJect = require('./handlers/createJect');
+const getJect = require('./handlers/getJect');
 
 /*
-const createOrder = require('./handlers/createOrder');
-const getOrder = require('./handlers/getOrder');
 const getTask = require('./handlers/getTask');
 const getTasksByOrder = require('./handlers/getTasksByOrder');
 const getUserOrders = require('./handlers/getUserOrders');
@@ -32,13 +32,13 @@ router.post('/registration', jsonParser, registration);
 router.post('/activation', jsonParser, activation);
 router.post('/update-profile', jsonParser, updateProfile);
 router.post('/upload-avatar', jsonParser, uploadAvatar);
+router.post('/create-ject', jsonParser, createJect);
+router.get('/ject/:jectId', getJect);
 
 /*
-router.post('/create-order', jsonParser, createOrder);
 router.get('/user/:userId', getUserInfoById);
 router.get('/user-orders', getUserOrders);
 router.get('/user-jobs', getUserJobs);
-router.get('/order/:orderId', getOrder);
 router.get('/task/:taskId', getTask);
 router.get('/tasks-by-order/:orderId', getTasksByOrder);
 router.get('/messages-by-task/:taskId', getMessagesByTask);

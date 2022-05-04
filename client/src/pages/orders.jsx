@@ -59,7 +59,7 @@ const OrderPage = props => {
         </Typography>
         <Box mt={2}>
           <Typography variant="body1">
-            You can create new <Link href="/create-order" variant="body2">order</Link> or find <Link href="/jobs" variant="body2">job</Link>
+            You can create new <Link href="/create-ject" variant="body2">order</Link> or find <Link href="/jobs" variant="body2">job</Link>
           </Typography>
         </Box>
       </MessageLayout>

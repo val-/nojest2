@@ -144,65 +144,6 @@ const OrderPage = props => {
               {errorState}
             </Alert>
           }
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Box className={classes.formRow}>
-              <Box className={classes.formCellHalf}>
-                <TextField
-                  className={classes.textFieldInRow}
-                  fullWidth
-                  label="Expected price"
-                  name="expectedPrice"
-                  type="number"
-                  value={filedsState.expectedPrice || ''}
-                  onChange={handleChange}
-                />
-              </Box>
-              <KeyboardDatePicker
-                className={classes.datePicker}
-                label="Deadline"
-                format="dd.MM.yyyy"
-                value={filedsState.deadline}
-                onChange={handleDeadlineChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </Box>
-          </MuiPickersUtilsProvider>
-          <Box className={classes.formRow}>
-            <FormControl className={classes.formControlSelect}>
-              <InputLabel id="language-select-label">Target language</InputLabel>
-              <Select
-                labelId="language-select-label"
-                id="language-select"
-                className={classes.select}
-                name="language"
-                value={filedsState.language}
-                onChange={handleChange}
-              >
-                <MenuItem value={'RU'}>Russian</MenuItem>
-                <MenuItem value={'EN'}>English</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControlSelect}>
-              <InputLabel id="platform-select-label">Target platform</InputLabel>
-              <Select
-                labelId="platform-select-label"
-                id="platform-select"
-                className={classes.select}
-                name="platform"
-                value={filedsState.platform}
-                onChange={handleChange}
-              >
-                <MenuItem value={'ios'}>IOS</MenuItem>
-                <MenuItem value={'android'}>Android</MenuItem>
-                <MenuItem value={'tv'}>TV</MenuItem>
-                <MenuItem value={'mac'}>Mac</MenuItem>
-                <MenuItem value={'pc'}>PC</MenuItem>
-                <MenuItem value={'web'}>Web</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
         </form>
       </CardContent>
     </Card>

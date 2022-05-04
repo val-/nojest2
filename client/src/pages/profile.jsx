@@ -221,43 +221,6 @@ const ProfilePage = props => {
               />
             </label>
           </form>
-          <Box className={classes.ratingBox}>
-            <Rating
-              name="profile-rating"
-              value={4.5}
-              precision={0.5}
-              readOnly
-              size="large"
-            />
-          </Box>
-          <Box className={classes.chipsBox}>
-            <Chip
-              className={classes.chips}
-              label="English"
-              color="secondary"
-              size="small"
-              onDelete={handleDelete}
-              icon={<LanguageIcon />}
-            />
-          </Box>
-          <Box className={classes.chipsBox}>
-            <Chip
-              label="Russian"
-              color="secondary"
-              size="small"
-              onDelete={handleDelete}
-              icon={<LanguageIcon />}
-            />
-          </Box>
-          <Box className={classes.chipsBox}>
-            <Chip
-              label="Software engineer"
-              color="primary"
-              size="small"
-              onDelete={handleDelete}
-              icon={<WorkIcon />}
-            />
-          </Box>
         </Box>
         <Box className={classes.cellRight}>
           <Typography variant="h4">

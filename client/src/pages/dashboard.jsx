@@ -47,24 +47,22 @@ const DashboardPage = props => {
 
   const createOrderCard = (
     <Card square className={classes.card}>
-      <CardActionArea onClick={() => { openPage('create-order'); }}>
-        <CardMedia className={classes.media} title="New order">
-          <img src="static/images/clip/order.jpg" alt="New order"/>
+      <CardActionArea onClick={() => { openPage('create-ject'); }}>
+        <CardMedia className={classes.media} title="New project">
+          <img src="static/images/clip/order.jpg" alt="New project"/>
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Create new order
+            Create new project
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Fill in you project description and respondents conditions.
-            <br/>
-            We will notify you about the requests for the order.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => { openPage('create-order'); }}>
-          New order
+        <Button size="small" color="primary" onClick={() => { openPage('create-ject'); }}>
+          New project
         </Button>
       </CardActions>
     </Card>
@@ -122,6 +120,7 @@ const DashboardPage = props => {
 
   return (
     <MainLayout>
+      { createOrderCard }
       { ordersCard }
     </MainLayout>
   );

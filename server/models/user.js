@@ -97,12 +97,8 @@ const generateUserProfile = user => new Promise(function(resolve) {
         id: user.id,
         email: user.email,
         fullName: user.full_name,
-        dateOfBirth: user.date_of_birth,
         avatar: user.avatar,
     };
-    if (user.gender !== 'NONE') {
-        profile.gender = user.gender;
-    }
     if (user.phone_number !== 'NULL') {
         profile.phoneNumber = user.phone_number;
     }
@@ -175,25 +171,17 @@ module.exports = {
         const {
             email,
             fullName,
-            gender,
-            dateOfBirth,
             phoneNumber
         } = data;
-        const dateOfBirthObj = new Date(dateOfBirth);
         validateProfileData(data).then(() => db.query(
             `
                 UPDATE nj_user
-                SET full_name = $2,
-                gender = $3,
-                date_of_birth = $4,
-                phone_number = $5,
+                SET full_name = $2, phone_number = $3
                 WHERE email = $1
             `,
             [
                 email,
                 fullName,
-                gender || 'NONE',
-                dateOfBirthObj || 'NULL',
                 phoneNumber || 'NULL',
             ]
         )).then(() => {

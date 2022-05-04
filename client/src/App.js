@@ -12,12 +12,12 @@ import { ThemeProvider } from '@material-ui/styles';
 import LoginPage from './pages/login';
 import RegistrationPage from './pages/registration';
 import ProfilePage from './pages/profile';
-import CreateOrderPage from './pages/createOrder';
+import CreateJectPage from './pages/createJect';
 import ProfileActivationPage from './pages/profileActivation';
 import DashboardPage from './pages/dashboard';
 import JobsPage from './pages/jobs';
 import OrdersPage from './pages/orders';
-import OrderPage from './pages/order';
+import JectPage from './pages/ject';
 import TaskPage from './pages/task';
 import themePalette from './themePalette';
 import themeOverrides from './themeOverrides';
@@ -86,8 +86,8 @@ function App() {
             <PrivateRoute exact path="/profile">
               <ProfilePage />
             </PrivateRoute>
-            <PrivateRoute exact path="/create-order">
-              <CreateOrderPage />
+            <PrivateRoute exact path="/create-ject">
+              <CreateJectPage />
             </PrivateRoute>
             <PrivateRoute exact path="/orders">
               <OrdersPage />
@@ -95,8 +95,8 @@ function App() {
             <PrivateRoute exact path="/jobs">
               <JobsPage />
             </PrivateRoute>
-            <PrivateRoute exact path="/order/:orderId">
-              <OrderPage />
+            <PrivateRoute exact path="/ject/:jectId">
+              <JectPage />
             </PrivateRoute>
             <PrivateRoute exact path="/task/:taskId">
               <TaskPage />

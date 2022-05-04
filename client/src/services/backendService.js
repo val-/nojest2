@@ -5,7 +5,7 @@ export const backendService = {
     logout,
     registration,
     activation,
-    createOrder,
+    createJect,
     sendMessage,
     getLettersByTask,
     waitLettersByTask,
@@ -59,8 +59,8 @@ function activation(token) {
     return fetchJSON('/api/activation', 'POST', { token });
 }
 
-function createOrder(params) {
-    return fetchJSON('/api/create-order', 'POST', params)
+function createJect(params) {
+    return fetchJSON('/api/create-ject', 'POST', params)
 }
 
 function sendMessage(params) {
