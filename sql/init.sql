@@ -48,6 +48,13 @@ CREATE TABLE nj_ject(
     status nj_ject_status
 );
 
+CREATE TABLE nj_document(
+    id SERIAL PRIMARY KEY,
+    ject_id integer REFERENCES nj_ject(id),
+    document_author_id integer REFERENCES nj_user(id),
+    url text NOT NULL UNIQUE
+);
+
 CREATE TABLE nj_member(
     id SERIAL PRIMARY KEY,
     ject_id integer REFERENCES nj_ject(id),
@@ -82,6 +89,14 @@ CREATE TABLE nj_task(
     target_version_id integer REFERENCES nj_version(id)
 );
 
+CREATE TABLE nj_task_message(
+    id SERIAL PRIMARY KEY,
+    task_id integer REFERENCES nj_task(id),
+    date_time timestamp,
+    author_id integer REFERENCES nj_user(id),
+    letter text
+);
+
 CREATE TABLE nj_task_history(
     id SERIAL PRIMARY KEY,
     task_id integer REFERENCES nj_task(id),
@@ -89,10 +104,3 @@ CREATE TABLE nj_task_history(
     status nj_task_status
 );
 
-CREATE TABLE nj_message(
-    id SERIAL PRIMARY KEY,
-    task_id integer REFERENCES nj_task(id),
-    date_time timestamp,
-    author_id integer REFERENCES nj_user(id),
-    letter text
-);
