@@ -43,6 +43,7 @@ CREATE TABLE nj_user(
 
 CREATE TABLE nj_ject(
     id SERIAL PRIMARY KEY,
+    code varchar(64) NOT NULL UNIQUE,
     title varchar(255),
     description text,
     status nj_ject_status
