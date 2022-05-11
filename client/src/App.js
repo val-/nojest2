@@ -13,6 +13,8 @@ import LoginPage from './pages/login';
 import RegistrationPage from './pages/registration';
 import ProfilePage from './pages/profile';
 import CreateJectPage from './pages/createJect';
+import CreateTaskPage from './pages/createTask';
+import CreateVersionPage from './pages/createVersion';
 import ProfileActivationPage from './pages/profileActivation';
 import DashboardPage from './pages/dashboard';
 import JobsPage from './pages/jobs';
@@ -88,6 +90,12 @@ function App() {
             </PrivateRoute>
             <PrivateRoute exact path="/create-ject">
               <CreateJectPage />
+            </PrivateRoute>
+            <PrivateRoute exact path="/create-task">
+              <CreateTaskPage />
+            </PrivateRoute>
+            <PrivateRoute exact path="/create-version">
+              <CreateVersionPage />
             </PrivateRoute>
             <PrivateRoute exact path="/orders">
               <OrdersPage />

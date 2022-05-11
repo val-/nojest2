@@ -56,13 +56,36 @@ const DashboardPage = props => {
             Create new project
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Fill in you project description and respondents conditions.
+            Fill in you project title, description and members.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary" onClick={() => { openPage('create-ject'); }}>
           New project
+        </Button>
+      </CardActions>
+    </Card>
+  );
+
+  const createTaskCard = (
+    <Card square className={classes.card}>
+      <CardActionArea onClick={() => { openPage('create-task'); }}>
+        <CardMedia className={classes.media} title="New task">
+          <img src="static/images/clip/work.jpg" alt="New task"/>
+        </CardMedia>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            Create new task
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Fill in you task information.
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary" onClick={() => { openPage('create-task'); }}>
+          New task
         </Button>
       </CardActions>
     </Card>
@@ -121,6 +144,7 @@ const DashboardPage = props => {
   return (
     <MainLayout>
       { createOrderCard }
+      { createTaskCard }
       { ordersCard }
     </MainLayout>
   );

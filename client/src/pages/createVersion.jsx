@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Paper,
@@ -6,6 +5,12 @@ import {
   TextField,
   Box,
   Typography,
+  FormControl,
+  FormControlLabel,
+  Switch,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
@@ -39,13 +44,26 @@ const useStyles = makeStyles(theme => ({
   saveButton: {
     marginTop: theme.spacing(4),
   },
+
+  formRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(4),
+  },
+  formControlSelect: {
+    width: '47%',
+  },
+  formControlSwitch: {
+    width: '47%',
+    justifyContent: 'end',
+  },
+
 }));
 
-const CreateJectPage = props => {
+const CreateTaskPage = props => {
 
   const classes = useStyles();
   const history = useHistory();
-  //const mock = {"title": "Создать прототип сервиса сопровождения UX тестирования","description": "Сущности: language, user, session, message, ject, task, task_history, account, feedback\n\nПользовательский интерфейс: React, Material UI\n\nИмплементация бизнес процессов сущностями реальной БД: PostgreSQL\n\nТранзакции для операций со счетами\n\nОбработка запросов к API: Node, Express\n\nМодели данных в функциональном стиле\n\nОтправка уведомлений по почте\n\nОперативный чат задания\n\nTask status flow\n\nОтзывы и принципы генерации кармы по отзывам\n\nГенерация договоров и отчётов\n\nhttps://github.com/val-/nojest\nhttps://github.com/val-/nojest/blob/main/docs/about-nojest.md\nhttps://github.com/val-/nojest/blob/main/docs/db.md\n","platform": "web","language": "RU","deadline": "2021-12-11T18:00:00.000Z","expectedPrice": "49997"};
   const mock = {};
 
   const [formState, setFormState] = useState({ values: mock });
@@ -77,14 +95,18 @@ const CreateJectPage = props => {
   const handleSubmit = event => {
     event.preventDefault();
     setErrorState(false);
-    backend.createJect(formState.values).then(
+    backend.createTask(formState.values).then(
       handleSuccess,
       setErrorState,
     );
   };
 
   const handleSuccess = resp => {
-    history.push(`/ject/${resp.jectId}`);
+    history.push(`/version/${resp.versionId}`);
+  };
+
+  const handleIsActiveChange = () => {
+    // TODO
   };
 
   return (
@@ -96,7 +118,7 @@ const CreateJectPage = props => {
             onSubmit={handleSubmit}
           >
             <Typography variant="h4" className={classes.header}>
-              Create new project
+              Create new project version
             </Typography>
             { formState.error &&
               <Alert
@@ -109,16 +131,7 @@ const CreateJectPage = props => {
             <TextField
               className={classes.textField}
               fullWidth
-              label="New project short code"
-              name="code"
-              type="text"
-              value={formState.values.code || ''}
-              onChange={handleChange}
-            />
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="New project title"
+              label="New version title"
               name="title"
               type="text"
               value={formState.values.title || ''}
@@ -134,6 +147,34 @@ const CreateJectPage = props => {
               value={formState.values.description || ''}
               onChange={handleChange}
             />
+            <Box className={classes.formRow}>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="ject-select-label">Project</InputLabel>
+                <Select
+                  labelId="ject-select-label"
+                  id="ject-select"
+                  className={classes.select}
+                  name="ject"
+                  value={formState.values.ject}
+                  onChange={handleChange}
+                >
+                  {/*<MenuItem value={'RU'}>Russian</MenuItem>*/}
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControlSwitch}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={formState.values.isActive}
+                      onChange={handleIsActiveChange}
+                      name="isActive"
+                      color="primary"
+                    />
+                  }
+                  label="Is active version"
+                />
+              </FormControl>
+            </Box>
             <Box className={classes.formRowButtons}>
               <Button
                 className={classes.saveButton}
@@ -142,7 +183,7 @@ const CreateJectPage = props => {
                 type="submit"
                 variant="contained"
               >
-                Create project
+                Create version
               </Button>
             </Box>
           </form>
@@ -153,4 +194,4 @@ const CreateJectPage = props => {
 
 };
 
-export default CreateJectPage;
+export default CreateTaskPage;

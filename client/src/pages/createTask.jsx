@@ -6,6 +6,10 @@ import {
   TextField,
   Box,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
@@ -39,13 +43,22 @@ const useStyles = makeStyles(theme => ({
   saveButton: {
     marginTop: theme.spacing(4),
   },
+
+  formRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(4),
+  },
+  formControlSelect: {
+    width: '47%',
+  },
+
 }));
 
-const CreateJectPage = props => {
+const CreateTaskPage = props => {
 
   const classes = useStyles();
   const history = useHistory();
-  //const mock = {"title": "Создать прототип сервиса сопровождения UX тестирования","description": "Сущности: language, user, session, message, ject, task, task_history, account, feedback\n\nПользовательский интерфейс: React, Material UI\n\nИмплементация бизнес процессов сущностями реальной БД: PostgreSQL\n\nТранзакции для операций со счетами\n\nОбработка запросов к API: Node, Express\n\nМодели данных в функциональном стиле\n\nОтправка уведомлений по почте\n\nОперативный чат задания\n\nTask status flow\n\nОтзывы и принципы генерации кармы по отзывам\n\nГенерация договоров и отчётов\n\nhttps://github.com/val-/nojest\nhttps://github.com/val-/nojest/blob/main/docs/about-nojest.md\nhttps://github.com/val-/nojest/blob/main/docs/db.md\n","platform": "web","language": "RU","deadline": "2021-12-11T18:00:00.000Z","expectedPrice": "49997"};
   const mock = {};
 
   const [formState, setFormState] = useState({ values: mock });
@@ -77,14 +90,14 @@ const CreateJectPage = props => {
   const handleSubmit = event => {
     event.preventDefault();
     setErrorState(false);
-    backend.createJect(formState.values).then(
+    backend.createTask(formState.values).then(
       handleSuccess,
       setErrorState,
     );
   };
 
   const handleSuccess = resp => {
-    history.push(`/ject/${resp.jectId}`);
+    history.push(`/task/${resp.taskId}`);
   };
 
   return (
@@ -96,7 +109,7 @@ const CreateJectPage = props => {
             onSubmit={handleSubmit}
           >
             <Typography variant="h4" className={classes.header}>
-              Create new project
+              Create new task
             </Typography>
             { formState.error &&
               <Alert
@@ -109,16 +122,7 @@ const CreateJectPage = props => {
             <TextField
               className={classes.textField}
               fullWidth
-              label="New project short code"
-              name="code"
-              type="text"
-              value={formState.values.code || ''}
-              onChange={handleChange}
-            />
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="New project title"
+              label="New task title"
               name="title"
               type="text"
               value={formState.values.title || ''}
@@ -134,6 +138,62 @@ const CreateJectPage = props => {
               value={formState.values.description || ''}
               onChange={handleChange}
             />
+            <Box className={classes.formRow}>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="ject-select-label">Task project</InputLabel>
+                <Select
+                  labelId="ject-select-label"
+                  id="ject-select"
+                  className={classes.select}
+                  name="ject"
+                  value={formState.values.ject}
+                  onChange={handleChange}
+                >
+                  {/*<MenuItem value={'RU'}>Russian</MenuItem>*/}
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="parent-select-label">Parent task</InputLabel>
+                <Select
+                  labelId="parent-select-label"
+                  id="parent-select"
+                  className={classes.select}
+                  name="parent"
+                  value={formState.values.parent}
+                  onChange={handleChange}
+                >
+                  {/*<MenuItem value={'ios'}>IOS</MenuItem>*/}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box className={classes.formRow}>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="contractor-select-label">Contractor</InputLabel>
+                <Select
+                  labelId="contractor-select-label"
+                  id="contractor-select"
+                  className={classes.select}
+                  name="contractor"
+                  value={formState.values.contractor}
+                  onChange={handleChange}
+                >
+                  {/*<MenuItem value={'RU'}>Russian</MenuItem>*/}
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="version-select-label">Target version</InputLabel>
+                <Select
+                  labelId="version-select-label"
+                  id="version-select"
+                  className={classes.select}
+                  name="version"
+                  value={formState.values.version}
+                  onChange={handleChange}
+                >
+                  {/*<MenuItem value={'ios'}>IOS</MenuItem>*/}
+                </Select>
+              </FormControl>
+            </Box>
             <Box className={classes.formRowButtons}>
               <Button
                 className={classes.saveButton}
@@ -142,7 +202,7 @@ const CreateJectPage = props => {
                 type="submit"
                 variant="contained"
               >
-                Create project
+                Create task
               </Button>
             </Box>
           </form>
@@ -153,4 +213,4 @@ const CreateJectPage = props => {
 
 };
 
-export default CreateJectPage;
+export default CreateTaskPage;

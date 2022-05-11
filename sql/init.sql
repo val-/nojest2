@@ -83,6 +83,8 @@ CREATE TABLE nj_version(
 
 CREATE TABLE nj_task(
     id SERIAL PRIMARY KEY,
+    title varchar(255),
+    description text,
     ject_id integer REFERENCES nj_ject(id),
     task_author_id integer REFERENCES nj_user(id),
     contractor_id integer REFERENCES nj_user(id),
