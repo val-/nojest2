@@ -63,6 +63,14 @@ const hashPassword = password => new Promise((resolve, reject) => {
 });
 
 const findUserByEmail = email => new Promise(function(resolve, reject) {
+    
+    // db.query(
+    //     'EXPLAIN SELECT * FROM nj_user WHERE email = $1',
+    //     [email]
+    // ).then(result => {
+    //     console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
+    // });
+
     db.query(
         'SELECT * FROM nj_user WHERE email = $1',
         [email]
@@ -173,6 +181,30 @@ module.exports = {
             fullName,
             phoneNumber
         } = data;
+
+        // db.query(
+        //     `
+        //         EXPLAIN
+        //         UPDATE nj_user
+        //         SET full_name = $2, phone_number = $3
+        //         WHERE email = $1
+        //     `,
+        //     [
+        //         email,
+        //         fullName,
+        //         phoneNumber || 'NULL',
+        //     ]
+        // ).then(result => {
+        //     console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
+        // });
+
+        db.query(
+            'EXPLAIN SELECT * FROM nj_user WHERE email = $1',
+            [email]
+        ).then(result => {
+            console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
+        });
+
         validateProfileData(data).then(() => db.query(
             `
                 UPDATE nj_user

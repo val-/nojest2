@@ -1,0 +1,11 @@
+{
+  "command": "EXPLAIN",
+  "rows": [
+    {
+      "QUERY PLAN": "Index Scan using nj_user_email_key on nj_user  (cost=0.14..8.16 rows=1 width=1439)"
+    },
+    {
+      "QUERY PLAN": "  Index Cond: ((email)::text = 'webkoder@ya.ru'::text)"
+    }
+  ]
+}

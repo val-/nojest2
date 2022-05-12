@@ -1,0 +1,8 @@
+
+Index Scan using nj_user_email_key on nj_user  (cost=0.14..8.16 rows=1 width=1439)
+  Index Cond: ((email)::text = 'webkoder@ya.ru'::text)
+
+Update on nj_user  (cost=0.14..8.16 rows=0 width=0)"
+  ->  Index Scan using nj_user_email_key on nj_user  (cost=0.14..8.16 rows=1 width=600)"
+        Index Cond: ((email)::text = 'webkoder@ya.ru'::text)"
+
