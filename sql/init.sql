@@ -88,6 +88,7 @@ CREATE TABLE nj_task(
     ject_id integer REFERENCES nj_ject(id),
     task_author_id integer REFERENCES nj_user(id),
     contractor_id integer REFERENCES nj_user(id),
+    deadline timestamp,
     parent_id integer REFERENCES nj_task(id),
     target_version_id integer REFERENCES nj_version(id)
 );
