@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
+  Link,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
 import MainLayout from '../components/mainLayout';
 import MessageLayout from '../components/messageLayout';
-import OrdersTable from '../components/ordersTable';
+import JectsTable from '../components/jectsTable';
 import ScreenLocker from '../components/screenLocker';
 import { backendService as backend } from '../services/backendService';
 
@@ -26,50 +27,45 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const JobsPage = props => {
+const JectPage = props => {
 
   const classes = useStyles();
 
   const [initStartedState, setInitStarted] = useState(false);
-  const [ordersReadyState, setOrdersReady] = useState(false);
-  const [ordersState, setOrders] = useState([]);
-  const [authorizedUserState, setAuthorizedUser] = useState(false);
+  const [jectsReadyState, setJectsReady] = useState(false);
+  const [jectsState, setJects] = useState([]);
   const [errorState, setError] = useState(false);
 
 
   useEffect(() => {
-
-    if (!authorizedUserState) {
-      const { authorizedUser } = backend.getSessionContext();
-      setAuthorizedUser(authorizedUser);
-    }
     if (!initStartedState) {
         setInitStarted(true);
-        backend.getUserJobsList().then(resp => {
-            setOrders(resp);
-            setOrdersReady(true);
+        backend.getUserJectsList().then(resp => {
+            setJects(resp);
+            setJectsReady(true);
         }, setError);
     }
-  }, [authorizedUserState, initStartedState]);
+  }, [initStartedState]);
 
-  if (!ordersReadyState) {
+  if (!jectsReadyState) {
     return <ScreenLocker />;
   }
 
-  if (ordersReadyState && !ordersState.length) {
+  if (jectsReadyState && !jectsState.length) {
     return (
       <MessageLayout showHeadLine={true}>
         <Typography variant="h4">
-          Job for you not found. Sorry.
+          You have not actual projects.
         </Typography>
         <Box mt={2}>
           <Typography variant="body1">
-            But we write email to {authorizedUserState.email} when job will appear.
+            You can create new <Link href="/create-ject" variant="body2">project</Link> or find <Link href="/jobs" variant="body2">job</Link>
           </Typography>
         </Box>
       </MessageLayout>
     );
   }
+
 
   return (
     <MainLayout>
@@ -83,8 +79,8 @@ const JobsPage = props => {
                 {errorState}
               </Alert>
             }
-            <OrdersTable
-                ordersList={ordersState}
+            <JectsTable
+                jectsList={jectsState}
             />
         </div>
       </Box>
@@ -93,4 +89,4 @@ const JobsPage = props => {
 
 };
 
-export default JobsPage;
+export default JectPage;

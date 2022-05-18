@@ -10,9 +10,9 @@ export const backendService = {
     getLettersByTask,
     waitLettersByTask,
     waitStatusChangeByTask,
-    getOrder,
+    getJect,
     getTask,
-    getUserOrdersList,
+    getUserJectsList,
     getUserJobsList,
     updateProfile,
     uploadAvatar,
@@ -83,8 +83,8 @@ function waitStatusChangeByTask(taskId) {
     return fetchJSON(`/api/wait-status-change-by-task/${taskId}`)
 }
 
-function getOrder(orderId) {
-    return fetchJSON(`/api/order/${orderId}`)
+function getJect(jectId) {
+    return fetchJSON(`/api/ject/${jectId}`)
 }
 
 function getTask(taskId) {
@@ -95,8 +95,8 @@ function getUserInfo(userId) {
     return fetchJSON(`/api/user/${userId}`)
 }
 
-function getUserOrdersList() {
-    return fetchJSON('/api/user-orders')
+function getUserJectsList() {
+    return fetchJSON('/api/user-jects')
 }
 
 function getUserJobsList() {

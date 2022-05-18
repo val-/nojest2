@@ -11,11 +11,11 @@ const updateProfile = require('./handlers/updateProfile');
 const uploadAvatar = require('./handlers/uploadAvatar');
 const createJect = require('./handlers/createJect');
 const getJect = require('./handlers/getJect');
+const getUserJects = require('./handlers/getUserJects');
 
 /*
 const getTask = require('./handlers/getTask');
-const getTasksByOrder = require('./handlers/getTasksByOrder');
-const getUserOrders = require('./handlers/getUserOrders');
+const getTasksByJect = require('./handlers/getTasksByJect');
 const getUserJobs = require('./handlers/getUserJobs');
 const getMessagesByTask = require('./handlers/getMessagesByTask');
 const waitMessagesByTask = require('./handlers/waitMessagesByTask');
@@ -34,13 +34,13 @@ router.post('/update-profile', jsonParser, updateProfile);
 router.post('/upload-avatar', jsonParser, uploadAvatar);
 router.post('/create-ject', jsonParser, createJect);
 router.get('/ject/:jectId', getJect);
+router.get('/user-jects', getUserJects);
 
 /*
 router.get('/user/:userId', getUserInfoById);
-router.get('/user-orders', getUserOrders);
 router.get('/user-jobs', getUserJobs);
 router.get('/task/:taskId', getTask);
-router.get('/tasks-by-order/:orderId', getTasksByOrder);
+router.get('/tasks-by-ject/:jectId', getTasksByJect);
 router.get('/messages-by-task/:taskId', getMessagesByTask);
 router.get('/wait-messages-by-task/:taskId', waitMessagesByTask);
 router.get('/wait-status-change-by-task/:taskId', waitStatusChangeByTask);

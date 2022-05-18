@@ -84,6 +84,7 @@ const CreateJectPage = props => {
   };
 
   const handleSuccess = resp => {
+    console.log('resp: ', resp);
     history.push(`/ject/${resp.jectId}`);
   };
 

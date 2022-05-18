@@ -45,7 +45,7 @@ const DashboardPage = props => {
     history.push(`/${code}`);
   }
 
-  const createOrderCard = (
+  const createJectCard = (
     <Card square className={classes.card}>
       <CardActionArea onClick={() => { openPage('create-ject'); }}>
         <CardMedia className={classes.media} title="New project">
@@ -91,51 +91,26 @@ const DashboardPage = props => {
     </Card>
   );
 
-  const ordersCard = (
+  const jectsCard = (
     <Card square className={classes.card}>
-      <CardActionArea onClick={() => { openPage('orders'); }}>
+      <CardActionArea onClick={() => { openPage('jects'); }}>
         <CardMedia className={classes.media} title="Let`s get working">
           <img src="static/images/clip/work.jpg" alt="Let`s get working"/>
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Actual orders
+            Actual projects
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            View personal tasks by orders. Direct task team chat.
+            View personal tasks by projects. Direct task team chat.
             <br/>
             We will notify you about task changes.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => { openPage('orders'); }}>
-          View orders
-        </Button>
-      </CardActions>
-    </Card>
-  );
-
-  const jobsCard = (
-    <Card square className={classes.card}>
-      <CardActionArea onClick={() => { openPage('jobs'); }}>
-        <CardMedia className={classes.media} title="New order">
-          <img src="static/images/clip/create.jpg" alt="New order"/>
-        </CardMedia>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Get a job
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            View actual available tasks.
-            <br/>
-            We will notify you about new orders.
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" onClick={() => { openPage('jobs'); }}>
-          View tasks
+        <Button size="small" color="primary" onClick={() => { openPage('jects'); }}>
+          View projects
         </Button>
       </CardActions>
     </Card>
@@ -143,9 +118,9 @@ const DashboardPage = props => {
 
   return (
     <MainLayout>
-      { createOrderCard }
+      { createJectCard }
       { createTaskCard }
-      { ordersCard }
+      { jectsCard }
     </MainLayout>
   );
 

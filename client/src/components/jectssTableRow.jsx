@@ -4,29 +4,25 @@ import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
-function OrdersTableRow({ order }) {
+function JectsTableRow({ ject }) {
 
   const history = useHistory();
-  const deadline = moment(order.deadline).fromNow();
-
-  const openOrder = () => {
-    history.push(`/order/${order.id}`);
+  
+  const openJect = () => {
+    history.push(`/ject/${ject.id}`);
   };
 
   return (
     <React.Fragment>
-      <TableRow hover onClick={openOrder}>
+      <TableRow hover onClick={openJect}>
         <TableCell>
-          { order.id }
+          { ject.code }
         </TableCell>
         <TableCell>
-          { order.title }
+          { ject.title }
         </TableCell>
         <TableCell>
-          { order.expectedPrice }
-        </TableCell>
-        <TableCell>
-          { deadline }
+          { ject.status }
         </TableCell>
       </TableRow>
     </React.Fragment>
@@ -34,4 +30,4 @@ function OrdersTableRow({ order }) {
 
 }
 
-export default OrdersTableRow;
+export default JectsTableRow;

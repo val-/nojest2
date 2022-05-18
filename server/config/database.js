@@ -44,8 +44,8 @@ const handleErrorMessages = err => new Promise((resolve) => {
         err = 'email already in use'
     } else if (err.code == '22P02') {
         err = 'invalid user UUID'
-    } else if (process.env.NODE_ENV !== 'development') {
-        err = 'something went wrong, please check your input and try again'
+    } else {
+        err = `Something went wrong, error code: ${err.code}`
     }
     resolve(err);
 });

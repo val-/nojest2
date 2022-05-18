@@ -72,8 +72,8 @@ const TaskPage = () => {
     }, setError);
   }
 
-  const openOrder = orderId => {
-    history.push(`/order/${orderId}`);
+  const openJect = jectId => {
+    history.push(`/ject/${jectId}`);
   };
 
   const confirmStatusChangeHandler = params => {
@@ -106,26 +106,23 @@ const TaskPage = () => {
     </>
   );
 
-  const generateOrderCard = order => (
-    !order ? '':
+  const generateJectCard = ject => (
+    !ject ? '':
     <Card square className={classes.card}>
       <CardHeader
         className={classes.cardHeader}
-        avatar={
-          <UserPic userId={order.authorId}/>
-        }
         action={
           <Button
             className={classes.cardActionButton}
             color="primary"
             variant="contained"
-            onClick={() => { openOrder(order.id) }}
+            onClick={() => { openJect(ject.id) }}
           >
-            Go to order
+            Go to project
           </Button>
         }
-        title={order.title}
-        subheader={`order #${order.id}`}
+        title={ject.title}
+        subheader={`# ${ject.code}`}
       >
       </CardHeader>
     </Card>
@@ -160,7 +157,7 @@ const TaskPage = () => {
   return (
     <MainLayout>
       <Box className={classes.root}>
-        { generateOrderCard(taskState.order) }
+        { generateJectCard(taskState.ject) }
         { generateTaskCard(taskState) }
         { taskState.id === undefined ? '':
           <Card square className={classes.card}>

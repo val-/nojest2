@@ -1,6 +1,6 @@
 const db = require('./../config/database');
 
-const validateOrderData = data => new Promise((resolve, reject) => {
+const validateJectData = data => new Promise((resolve, reject) => {
     if (!data.title) {
         reject('Title missing');
     } else if (!data.description) {
@@ -10,24 +10,34 @@ const validateOrderData = data => new Promise((resolve, reject) => {
     }
 });
 
+const generateJectData = orderData => ({
+    id: orderData.id,
+    code: orderData.code,
+    title: orderData.title,
+    description: orderData.description,
+    status: orderData.status,
+});
+
 module.exports = {
 
     create: data => new Promise((resolve, reject) => {
-        validateOrderData(data).then(() => db.query(
+        validateJectData(data).then(() => db.query(
             `
                 INSERT INTO nj_ject
                 (
+                    code,
                     title,
                     description,
                     status
                 )
-                VALUES ($1, $2, $3)
+                VALUES ($1, $2, $3, $4)
                 returning id
             `,
             [
+                data.code,
                 data.title,
                 data.description,
-                'ACTIVE',
+                'ACTIVE'
             ]
         ), reject).then(result => {
             if (
@@ -38,7 +48,7 @@ module.exports = {
             ) {
                 resolve(result.rows[0].id);
             } else {
-                reject('Order create error');
+                reject('Ject create error');
             }
         }).catch(reject);
     }),
@@ -52,15 +62,26 @@ module.exports = {
             if (jectData) {
                 resolve({
                     id: jectData.id,
+                    code: jectData.code,
                     title: jectData.title,
                     description: jectData.description,
                     status: jectData.status,
                 });
             } else {
-                reject('Order not found');
+                reject('Ject not found');
             }
         }, () => {
-            reject('getOrder() method error');
+            reject('getJect() method error');
+        });
+    }),
+
+    getActualJectsByUser: userId => new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM nj_ject'
+        ).then(result => {
+            resolve(result.rows.map(generateJectData));
+        }, () => {
+            reject('getActualJectsByUser() method error');
         });
     }),
 

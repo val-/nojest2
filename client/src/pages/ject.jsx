@@ -78,14 +78,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const OrderPage = props => {
+const JectPage = props => {
 
   const classes = useStyles();
   const history = useHistory();
-  let { orderId } = useParams();
+  let { jectId } = useParams();
 
   const [initStartedState, setInitStarted] = useState(false);
-  const [orderReadyState, setOrderReady] = useState(false);
+  const [jectReadyState, setJectReady] = useState(false);
   const [filedsState, setFields] = useState({});
   const [errorState, setError] = useState(false);
   const [nextStatusDialogState, setNextStatusDialog] = useState(false);
@@ -93,12 +93,12 @@ const OrderPage = props => {
   useEffect(() => {
     if (!initStartedState) {
         setInitStarted(true);
-        backend.getOrder(orderId).then(resp => {
+        backend.getJect(jectId).then(resp => {
             setFields(resp);
-            setOrderReady(true);
+            setJectReady(true);
         }, setError);
     }
-  }, [initStartedState, orderId, filedsState]);
+  }, [initStartedState, jectId, filedsState]);
 
   const handleChange = event => {
     event.persist();
@@ -115,18 +115,18 @@ const OrderPage = props => {
     history.push(`/task/${taskId}`);
   }
 
-  if (!orderReadyState) {
+  if (!jectReadyState) {
     return <ScreenLocker />;
   }
 
-  const orderCard = (
+  const jectCard = (
     <Card square className={classes.card}>
       <CardHeader
         avatar={
           <UserPic userId={filedsState.authorId}/>
         }
         title={filedsState.title}
-        subheader={`order #${filedsState.id}`}
+        subheader={`# ${filedsState.code}`}
       />
       <CardMedia className={classes.media}>
         {filedsState.description}
@@ -151,14 +151,15 @@ const OrderPage = props => {
 
   const confirmStatusChangeHandler = params => {
     setNextStatusDialog(false);
-    setOrderReady(false);
+    setJectReady(false);
     backend.changeTaskStatus({
       ...params,
       taskId: filedsState.tasks[0].id,
     }).then(() => {
-      backend.getOrder(orderId).then(resp => {
+      backend.getJect(jectId).then(resp => {
+        console.log('resp: ', resp);
         setFields(resp);
-        setOrderReady(true);
+        setJectReady(true);
       }, setError);
     }, setError);
   };
@@ -232,7 +233,7 @@ const OrderPage = props => {
   return (
     <MainLayout>
       <Box className={classes.root}>
-        { orderCard }
+        { jectCard }
         { filedsState.tasks && filedsState.tasks.map(generateTaskCard) }
         <ConfirmActionPopup
           nextStatus={nextStatusDialogState}
@@ -245,4 +246,4 @@ const OrderPage = props => {
 
 };
 
-export default OrderPage;
+export default JectPage;

@@ -6,9 +6,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Card from '@material-ui/core/Card';
-import OrdersTableRow from './ordersTableRow';
+import JectsTableRow from './jectssTableRow';
 
-export default function OrdersTable({ ordersList }) {
+export default function JectsTable({ jectsList }) {
   return (    
     <TableContainer component={Card} square variant="elevation">
       <Table>
@@ -16,13 +16,12 @@ export default function OrdersTable({ ordersList }) {
           <TableRow>
             <TableCell>#</TableCell>
             <TableCell>Title</TableCell>
-            <TableCell>Bet</TableCell>
-            <TableCell>Deadline</TableCell>
+            <TableCell>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {ordersList.map(
-            orderData => <OrdersTableRow key={orderData.id} order={orderData} />
+          {jectsList.map(
+            jectData => <JectsTableRow key={jectData.id} ject={jectData} />
           )}
         </TableBody>
       </Table>

@@ -17,8 +17,8 @@ import CreateTaskPage from './pages/createTask';
 import CreateVersionPage from './pages/createVersion';
 import ProfileActivationPage from './pages/profileActivation';
 import DashboardPage from './pages/dashboard';
-import JobsPage from './pages/jobs';
-import OrdersPage from './pages/orders';
+//import JobsPage from './pages/jobs';
+import JectsPage from './pages/jects';
 import JectPage from './pages/ject';
 import TaskPage from './pages/task';
 import themePalette from './themePalette';
@@ -97,11 +97,8 @@ function App() {
             <PrivateRoute exact path="/create-version">
               <CreateVersionPage />
             </PrivateRoute>
-            <PrivateRoute exact path="/orders">
-              <OrdersPage />
-            </PrivateRoute>
-            <PrivateRoute exact path="/jobs">
-              <JobsPage />
+            <PrivateRoute exact path="/jects">
+              <JectsPage />
             </PrivateRoute>
             <PrivateRoute exact path="/ject/:jectId">
               <JectPage />
