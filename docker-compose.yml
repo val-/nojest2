@@ -12,6 +12,8 @@ services:
         volumes:
             - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
             - ./sql/mock-users.sql:/docker-entrypoint-initdb.d/mock-users.sql
+            - ./sql/mock-jects.sql:/docker-entrypoint-initdb.d/mock-jects.sql
+            - ./sql/mock-tasks.sql:/docker-entrypoint-initdb.d/mock-tasks.sql
     admin:
         image: adminer
         restart: always

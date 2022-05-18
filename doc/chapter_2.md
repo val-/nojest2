@@ -381,3 +381,4 @@ d_{a, b}(i, j) =
 [2.1] К. Дж. Дейт. Введение в системы баз данных
 [2.2] ГОСТ 34.003-90
 [2.3] Brute Force algorithm (http://www-igm.univ-mlv.fr/~lecroq/string/node3.html)
+[2.4] ГОСТ 34.602-2020
