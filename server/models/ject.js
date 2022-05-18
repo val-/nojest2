@@ -1,5 +1,7 @@
 const db = require('./../config/database');
 
+const Task = require('./task');
+
 const validateJectData = data => new Promise((resolve, reject) => {
     if (!data.title) {
         reject('Title missing');
@@ -59,14 +61,20 @@ module.exports = {
             [jectId]
         ).then(result => {
             const jectData = result.rows[0];
+
             if (jectData) {
-                resolve({
-                    id: jectData.id,
-                    code: jectData.code,
-                    title: jectData.title,
-                    description: jectData.description,
-                    status: jectData.status,
-                });
+                Task.getActualTasksByJect(jectId).then(tasks => {
+                    resolve({
+                        id: jectData.id,
+                        code: jectData.code,
+                        title: jectData.title,
+                        description: jectData.description,
+                        status: jectData.status,
+                        tasks,
+                    });
+                }, () => {
+                    reject('Ject tasks not found');
+                })
             } else {
                 reject('Ject not found');
             }

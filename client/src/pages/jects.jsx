@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  title: {
+    paddingBottom: theme.spacing(4),
+  },
   wrap: {
     width: theme.spacing(120),
   },
@@ -71,6 +74,9 @@ const JectPage = props => {
     <MainLayout>
       <Box className={classes.root}>
         <div className={classes.wrap}>
+            <Typography variant="h4" className={classes.title}>
+              Projects list
+            </Typography>
             { errorState &&
               <Alert
                 severity="error"

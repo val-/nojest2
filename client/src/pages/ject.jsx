@@ -7,6 +7,7 @@ import {
   Button,
   TextField,
   Box,
+  Avatar,
   FormControl,
   InputLabel,
   Select,
@@ -123,7 +124,9 @@ const JectPage = props => {
     <Card square className={classes.card}>
       <CardHeader
         avatar={
-          <UserPic userId={filedsState.authorId}/>
+          <Avatar>
+            {filedsState.title[0] || ''}
+          </Avatar>
         }
         title={filedsState.title}
         subheader={`# ${filedsState.code}`}
@@ -212,16 +215,8 @@ const JectPage = props => {
         action={
           generateTaskCardActions(task)
         }
-        title={
-          <>
-            { task.status }
-            { 
-              task.status === 'REQUESTED' &&
-              <span> { utils.formatPrice(task.contractorPrice) }</span>
-            }
-          </>
-        }
-        subheader={`task #${task.id}`}
+        title={task.title}
+        subheader={`# ${filedsState.code} - ${task.id}`}
       >
       </CardHeader>
       { task.status === 'JUST_VIEWED' && !filedsState.own &&
