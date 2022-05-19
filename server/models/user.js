@@ -148,6 +148,28 @@ module.exports = {
 
     }),
 
+    getUsersList: () => new Promise((resolve, reject) => {
+
+        db.query(
+            'SELECT avatar, full_name, id FROM nj_user',
+        ).then(result => {
+            if (result.rows.length) {
+                resolve(result.rows.map(
+                    resp => ({
+                        avatar: resp.avatar,
+                        fullName: resp.full_name,
+                        id: resp.id,
+                    })
+                ));
+            } else {
+                reject('getUsersList() method error: empty list');
+            }
+        }, () => {
+            reject('getUsersList() method error');
+        }) 
+
+    }),
+
     create: (data, siteUrl) => new Promise((resolve, reject) => {
         const token = crypto.randomBytes(32).toString('hex');
         validateUserData(data).then(

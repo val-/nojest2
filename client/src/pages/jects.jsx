@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const JectPage = props => {
+const JectPage = () => {
 
   const classes = useStyles();
 

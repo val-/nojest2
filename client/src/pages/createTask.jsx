@@ -13,7 +13,13 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
+import ScreenLocker from '../components/screenLocker';
 import MainLayout from '../components/mainLayout';
 import { backendService as backend } from '../services/backendService';
 
@@ -55,7 +61,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const CreateTaskPage = props => {
+const CreateTaskPage = () => {
 
   const classes = useStyles();
   const history = useHistory();
@@ -80,6 +86,16 @@ const CreateTaskPage = props => {
     }));
   };
 
+  const handleDeadlineChange = newDate => {
+    setFormState(formState => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        deadline: newDate,
+      },
+    }));
+  };
+
   const setErrorState = error => {
     setFormState(formState => ({
       ...formState,
@@ -100,116 +116,175 @@ const CreateTaskPage = props => {
     history.push(`/task/${resp.taskId}`);
   };
 
-  return (
-    <MainLayout>
-      <Box className={classes.root}>
-        <Paper square className={classes.paper}>
-          <form
-            className={classes.form}
-            onSubmit={handleSubmit}
-          >
-            <Typography variant="h4" className={classes.header}>
-              Create new task
-            </Typography>
-            { formState.error &&
-              <Alert
-                severity="error"
-                className={classes.alert}
-              >
-                {formState.error}
-              </Alert>
-            }
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="New task title"
-              name="title"
-              type="text"
-              value={formState.values.title || ''}
-              onChange={handleChange}
-            />
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Description"
-              name="description"
-              multiline
-              type="text"
-              value={formState.values.description || ''}
-              onChange={handleChange}
-            />
-            <Box className={classes.formRow}>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="ject-select-label">Task project</InputLabel>
-                <Select
-                  labelId="ject-select-label"
-                  id="ject-select"
-                  className={classes.select}
-                  name="ject"
-                  value={formState.values.ject}
-                  onChange={handleChange}
+  const [initStartedState, setInitStarted] = useState(false);
+  const [jectsReadyState, setJectsReady] = useState(false);
+  const [jectsState, setJects] = useState([]);
+  const [usersReadyState, setUsersReady] = useState(false);
+  const [usersState, setUsers] = useState([]);
+  const [errorState, setError] = useState(false);
+
+
+  useEffect(() => {
+    if (!initStartedState) {
+        setInitStarted(true);
+        backend.getUserJectsList().then(resp => {
+            setJects(resp);
+            setJectsReady(true);
+        }, setError);
+        backend.getUsersList().then(resp => {
+            setUsers(resp);
+            setUsersReady(true);
+        }, setError);
+    }
+  }, [initStartedState]);
+
+  if (!jectsReadyState || !usersReadyState) {
+    return <ScreenLocker />;
+  }
+
+  if (jectsReadyState && usersReadyState) {
+    return (
+      <MainLayout>
+        <Box className={classes.root}>
+          <Paper square className={classes.paper}>
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit}
+            >
+              <Typography variant="h4" className={classes.header}>
+                Create new task
+              </Typography>
+              { errorState &&
+                <Alert
+                  severity="error"
+                  className={classes.alert}
                 >
-                  {/*<MenuItem value={'RU'}>Russian</MenuItem>*/}
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="parent-select-label">Parent task</InputLabel>
-                <Select
-                  labelId="parent-select-label"
-                  id="parent-select"
-                  className={classes.select}
-                  name="parent"
-                  value={formState.values.parent}
-                  onChange={handleChange}
+                  {errorState}
+                </Alert>
+              }
+              { formState.error &&
+                <Alert
+                  severity="error"
+                  className={classes.alert}
                 >
-                  {/*<MenuItem value={'ios'}>IOS</MenuItem>*/}
-                </Select>
-              </FormControl>
-            </Box>
-            <Box className={classes.formRow}>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="contractor-select-label">Contractor</InputLabel>
-                <Select
-                  labelId="contractor-select-label"
-                  id="contractor-select"
-                  className={classes.select}
-                  name="contractor"
-                  value={formState.values.contractor}
-                  onChange={handleChange}
+                  {formState.error}
+                </Alert>
+              }
+              <TextField
+                className={classes.textField}
+                fullWidth
+                label="New task title"
+                name="title"
+                type="text"
+                value={formState.values.title || ''}
+                onChange={handleChange}
+              />
+              <TextField
+                className={classes.textField}
+                fullWidth
+                label="Description"
+                name="description"
+                multiline
+                type="text"
+                value={formState.values.description || ''}
+                onChange={handleChange}
+              />
+              <Box className={classes.formRow}>
+                <FormControl className={classes.formControlSelect}>
+                  <InputLabel id="ject-select-label">Task project</InputLabel>
+                  <Select
+                    labelId="ject-select-label"
+                    id="ject-select"
+                    className={classes.select}
+                    name="jectId"
+                    value={formState.values.jectId }
+                    onChange={handleChange}
+                  >
+                    {
+                      jectsState.map(jectItem => (
+                        <MenuItem value={ jectItem.id } key={ jectItem.id }> { jectItem.title } </MenuItem>
+                      ))
+                    }
+                  </Select>
+                </FormControl>
+                <FormControl className={classes.formControlSelect}>
+                  <InputLabel id="parent-select-label">Parent task</InputLabel>
+                  <Select
+                    labelId="parent-select-label"
+                    id="parent-select"
+                    className={classes.select}
+                    name="parentId"
+                    value={formState.values.parentId}
+                    onChange={handleChange}
+                  >
+                    {/*<MenuItem value={'ios'}>IOS</MenuItem>*/}
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box className={classes.formRow}>
+                <FormControl className={classes.formControlSelect}>
+                  <InputLabel id="contractor-select-label">Contractor</InputLabel>
+                  <Select
+                    labelId="contractor-select-label"
+                    id="contractor-select"
+                    className={classes.select}
+                    name="contractorId"
+                    value={formState.values.contractorId}
+                    onChange={handleChange}
+                  >
+                    {
+                      usersState.map(userItem => (
+                        <MenuItem value={ userItem.id } key={ userItem.id }> { userItem.fullName } </MenuItem>
+                      ))
+                    }
+                  </Select>
+                </FormControl>
+                <FormControl className={classes.formControlSelect}>
+                  <InputLabel id="version-select-label">Target version</InputLabel>
+                  <Select
+                    labelId="version-select-label"
+                    id="version-select"
+                    className={classes.select}
+                    name="targetVersionId"
+                    value={formState.values.targetVersionId}
+                    onChange={handleChange}
+                  >
+                    {/*<MenuItem value={'ios'}>IOS</MenuItem>*/}
+                  </Select>
+                </FormControl>
+              </Box>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Box className={classes.formRow}>
+                  <KeyboardDatePicker
+                    className={classes.datePicker}
+                    label="Deadline"
+                    format="dd.MM.yyyy"
+                    value={formState.values.deadline}
+                    onChange={handleDeadlineChange}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </Box>
+              </MuiPickersUtilsProvider>
+              <Box className={classes.formRowButtons}>
+                <Button
+                  className={classes.saveButton}
+                  color="primary"
+                  size="large"
+                  type="submit"
+                  variant="contained"
                 >
-                  {/*<MenuItem value={'RU'}>Russian</MenuItem>*/}
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="version-select-label">Target version</InputLabel>
-                <Select
-                  labelId="version-select-label"
-                  id="version-select"
-                  className={classes.select}
-                  name="version"
-                  value={formState.values.version}
-                  onChange={handleChange}
-                >
-                  {/*<MenuItem value={'ios'}>IOS</MenuItem>*/}
-                </Select>
-              </FormControl>
-            </Box>
-            <Box className={classes.formRowButtons}>
-              <Button
-                className={classes.saveButton}
-                color="primary"
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Create task
-              </Button>
-            </Box>
-          </form>
-        </Paper>
-      </Box>
-    </MainLayout>
-  );
+                  Create task
+                </Button>
+              </Box>
+            </form>
+          </Paper>
+        </Box>
+      </MainLayout>
+    );
+
+  }
 
 };
 

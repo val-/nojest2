@@ -6,6 +6,7 @@ export const backendService = {
     registration,
     activation,
     createJect,
+    createTask,
     sendMessage,
     getLettersByTask,
     waitLettersByTask,
@@ -14,6 +15,7 @@ export const backendService = {
     getTask,
     getUserJectsList,
     getUserJobsList,
+    getUsersList,
     updateProfile,
     uploadAvatar,
     getUserInfo,
@@ -63,6 +65,10 @@ function createJect(params) {
     return fetchJSON('/api/create-ject', 'POST', params)
 }
 
+function createTask(params) {
+    return fetchJSON('/api/create-task', 'POST', params)
+}
+
 function sendMessage(params) {
     return fetchJSON('/api/send-message', 'POST', params)
 }
@@ -101,6 +107,10 @@ function getUserJectsList() {
 
 function getUserJobsList() {
     return fetchJSON('/api/user-jobs')
+}
+
+function getUsersList() {
+    return fetchJSON('/api/users')
 }
 
 function updateProfile(params) {

@@ -69,6 +69,7 @@ module.exports = {
     statusFlowByAuthor,
 
     create: data => new Promise((resolve, reject) => {
+        console.log('data: ', data);
         validateTaskData(data).then(() => db.query(
             `
                 INSERT INTO nj_task
@@ -102,7 +103,26 @@ module.exports = {
                 result.rows[0] &&
                 result.rows[0].id
             ) {
-                resolve(result.rows[0].id);
+                const newTaskId = result.rows[0].id;
+                const dateTime = new Date();
+                db.query(
+                    `
+                        INSERT INTO nj_task_history(
+                            task_id,
+                            date_time,
+                            status
+                        )
+                        VALUES ($1, $2, $3)
+                    `,
+                    [
+                        newTaskId,
+                        dateTime,
+                        'OPENED'
+
+                    ]
+                ).then(() => {
+                    resolve(newTaskId);
+                }, reject);
             } else {
                 reject('Task create error');
             }

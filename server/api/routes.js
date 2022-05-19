@@ -10,8 +10,10 @@ const activation = require('./handlers/activation');
 const updateProfile = require('./handlers/updateProfile');
 const uploadAvatar = require('./handlers/uploadAvatar');
 const createJect = require('./handlers/createJect');
+const createTask = require('./handlers/createTask');
 const getJect = require('./handlers/getJect');
 const getUserJects = require('./handlers/getUserJects');
+const getUsers = require('./handlers/getUsers');
 const getTasksByJect = require('./handlers/getTasksByJect');
 const getTask = require('./handlers/getTask');
 
@@ -33,8 +35,10 @@ router.post('/activation', jsonParser, activation);
 router.post('/update-profile', jsonParser, updateProfile);
 router.post('/upload-avatar', jsonParser, uploadAvatar);
 router.post('/create-ject', jsonParser, createJect);
+router.post('/create-task', jsonParser, createTask);
 router.get('/ject/:jectId', getJect);
 router.get('/user-jects', getUserJects);
+router.get('/users', getUsers);
 router.get('/tasks-by-ject/:jectId', getTasksByJect);
 router.get('/task/:taskId', getTask);
 
