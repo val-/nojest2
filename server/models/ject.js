@@ -61,6 +61,28 @@ module.exports = {
             [jectId]
         ).then(result => {
             const jectData = result.rows[0];
+            if (jectData) {
+                resolve({
+                    id: jectData.id,
+                    code: jectData.code,
+                    title: jectData.title,
+                    description: jectData.description,
+                    status: jectData.status,
+                });
+            } else {
+                reject('Ject not found');
+            }
+        }, () => {
+            reject('getJect() method error');
+        });
+    }),
+
+    getJectWithTasks: jectId => new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM nj_ject WHERE id = $1',
+            [jectId]
+        ).then(result => {
+            const jectData = result.rows[0];
 
             if (jectData) {
                 Task.getActualTasksByJect(jectId).then(tasks => {
@@ -79,7 +101,7 @@ module.exports = {
                 reject('Ject not found');
             }
         }, () => {
-            reject('getJect() method error');
+            reject('getJectWithTasks() method error');
         });
     }),
 

@@ -3,17 +3,30 @@ const Task = require('../../models/task');
 
 module.exports = (req, res) => {
 
+    const { authorizedUser } = req.session;
+
     Task.getTaskById(req.params.taskId).then(task => {
 
-        Ject.get(task.jectId).then(ject => {
+        // const { isAdmin } = authorizedUser; TODO
+        const isTaskAuthor = authorizedUser.id === task.taskAuthorId;
+        const isTaskContractor = authorizedUser.id === task.contractorId;
+        let statusFlow = [];
 
-            res.json({
-                ...task,
-                ject,
-            });
+        console.log('task.taskAuthorId: ', task.taskAuthorId);
+        console.log('task.contractorId: ', task.contractorId);
+        console.log('authorizedUser.id : ', authorizedUser.id );
 
-        }).catch(error => {
-            res.json({ error });
+        if (isTaskAuthor) {
+            statusFlow = Task.statusFlowByAuthor;
+        } else if (isTaskContractor) {
+            statusFlow = Task.statusFlowByContractor;
+        }
+
+        console.log('statusFlow: ', statusFlow);
+
+        res.json({
+            ...task,
+            nextStatusVariants: statusFlow[task.status],
         });
 
     }).catch(error => {

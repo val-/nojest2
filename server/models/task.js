@@ -22,7 +22,51 @@ const generateTaskData = taskData => ({
     targetVersionId: taskData.target_version_id,
 });
 
+const statusFlowByContractor = {
+    'OPENED': [ 'ASSIGNED', 'RESOLVED' ],
+    'ASSIGNED': [ 'OPENED' ],
+    'RESOLVED': [],
+    'REOPENED': [ 'ASSIGNED', 'RESOLVED' ],
+    'DONE': [],
+};
+
+const statusFlowByAuthor = {
+    'OPENED': [],
+    'ASSIGNED': [],
+    'RESOLVED': [ 'DONE', 'REOPENED' ],
+    'REOPENED': [],
+    'DONE': [],
+};
+
+const addTaskHistory = task => new Promise((resolve, reject) => {
+    db.query(
+        'SELECT * FROM nj_task_history WHERE task_id = $1',
+        [ task.id ]
+    ).then(result => {
+        const history = result.rows.map(
+            row => ({
+                dateTime: row.date_time,
+                id: row.id,
+                status: row.status,
+                taskId: row.task_id,
+            }),
+        );
+        console.log('history: ', history);
+        resolve({
+            ...task,
+            status: history[history.length-1].status,
+            history
+        });
+    }, () => {
+        reject('Task history not found');
+    });
+});
+
 module.exports = {
+
+    statusFlowByContractor,
+
+    statusFlowByAuthor,
 
     create: data => new Promise((resolve, reject) => {
         validateTaskData(data).then(() => db.query(
@@ -72,7 +116,7 @@ module.exports = {
         ).then(result => {
             const taskData = result.rows[0];
             if (taskData) {
-                resolve(generateTaskData(taskData));
+                addTaskHistory(generateTaskData(taskData)).then(resolve, reject)
             } else {
                 reject('Task not found');
             }

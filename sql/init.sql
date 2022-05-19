@@ -227,3 +227,37 @@ VALUES
   null
 );
 
+-- FILLIN NOJEST APP TASKS HISTORY
+
+INSERT INTO nj_task_history(
+  task_id,
+  date_time,
+  status
+)
+VALUES
+(
+  1,
+  TIMESTAMP '2011-07-23 15:36:38',
+  'OPENED'
+),
+(
+  2,
+  TIMESTAMP '2011-05-16 15:36:38',
+  'OPENED'
+),
+(
+  3,
+  TIMESTAMP '2011-05-15 18:36:38',
+  'OPENED'
+),
+(
+  4,
+  TIMESTAMP '2011-05-03 15:36:38',
+  'OPENED'
+),
+(
+  5,
+  TIMESTAMP '2011-09-23 15:36:38',
+  'OPENED'
+);
+

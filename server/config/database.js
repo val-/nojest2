@@ -2,7 +2,7 @@ const { Client } = require('pg');
 const connectionString = process.env.DATABASE_URL;
 let client;
 
-console.log('connectionString: ', connectionString);
+//console.log('connectionString: ', connectionString);
 
 const tryPostgresConnect = retries => new Promise((resolve, reject) => {
   if (retries < 10) {
@@ -24,8 +24,6 @@ const tryPostgresConnect = retries => new Promise((resolve, reject) => {
 });
 
 const query = (text, values) => new Promise(function(resolve, reject) {
-    console.log('query text: ', text);
-    console.log('query values: ', values);
     client.query(text, values, (err, result) => {
         if (err) {
             handleErrorMessages(err).then((message) => {

@@ -198,12 +198,12 @@ module.exports = {
         //     console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
         // });
 
-        db.query(
-            'EXPLAIN SELECT * FROM nj_user WHERE email = $1',
-            [email]
-        ).then(result => {
-            console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
-        });
+        // db.query(
+        //     'EXPLAIN SELECT * FROM nj_user WHERE email = $1',
+        //     [email]
+        // ).then(result => {
+        //     console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
+        // });
 
         validateProfileData(data).then(() => db.query(
             `
