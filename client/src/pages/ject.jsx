@@ -3,6 +3,7 @@ import {
   Card,
   CardHeader,
   CardContent,
+  CardActions,
   CardMedia,
   Button,
   TextField,
@@ -23,7 +24,6 @@ import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import MainLayout from '../components/mainLayout';
 import ScreenLocker from '../components/screenLocker';
-import Chat from '../components/chat';
 import UserPic from '../components/userPic';
 import ConfirmActionPopup from '../components/confirmActionPopup';
 import { backendService as backend } from '../services/backendService';
@@ -76,6 +76,16 @@ const useStyles = makeStyles(theme => ({
   },
   datePicker: {
     width: '47%',
+  },
+  tasks: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: theme.spacing(130),
+    justifyContent: 'center'
+  },
+  taskCard: {
+    width: theme.spacing(38),
+    margin: theme.spacing(1.5),
   },
 }));
 
@@ -174,7 +184,6 @@ const JectPage = props => {
           <Button
             className={classes.cardActionButton}
             color="primary"
-            variant="contained"
             onClick={() => { setNextStatusDialog('REQUESTED') }}
           >
             Request this job
@@ -182,7 +191,6 @@ const JectPage = props => {
           <Button
             className={classes.cardActionButton}
             color="primary"
-            variant="contained"
             onClick={() => { openTask(task.id) }}
           >
             Go to task
@@ -195,7 +203,6 @@ const JectPage = props => {
           <Button
             className={classes.cardActionButton}
             color="primary"
-            variant="contained"
             onClick={() => { openTask(task.id) }}
           >
             Go to task
@@ -206,22 +213,16 @@ const JectPage = props => {
 
   };
   const generateTaskCard = (task, taskIndex) => (
-    <Card square className={classes.card} key={taskIndex}>
+    <Card square className={classes.taskCard} key={taskIndex}>
       <CardHeader
         className={classes.cardHeader}
-        avatar={
-          <UserPic userId={task.contractorId}/>
-        }
-        action={
-          generateTaskCardActions(task)
-        }
         title={task.title}
         subheader={`# ${filedsState.code} - ${task.id}`}
       >
       </CardHeader>
-      { task.status === 'JUST_VIEWED' && !filedsState.own &&
-        <Chat task={task}/>
-      }
+      <CardActions>
+        { generateTaskCardActions(task) }
+      </CardActions>
     </Card>
   );
 
@@ -229,7 +230,9 @@ const JectPage = props => {
     <MainLayout>
       <Box className={classes.root}>
         { jectCard }
-        { filedsState.tasks && filedsState.tasks.map(generateTaskCard) }
+        <Box className={classes.tasks}>
+          { filedsState.tasks && filedsState.tasks.map(generateTaskCard) }
+        </Box>
         <ConfirmActionPopup
           nextStatus={nextStatusDialogState}
           handleClose={() => { setNextStatusDialog(false); }}
