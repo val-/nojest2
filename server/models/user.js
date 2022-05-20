@@ -63,14 +63,6 @@ const hashPassword = password => new Promise((resolve, reject) => {
 });
 
 const findUserByEmail = email => new Promise(function(resolve, reject) {
-    
-    // db.query(
-    //     'EXPLAIN SELECT * FROM nj_user WHERE email = $1',
-    //     [email]
-    // ).then(result => {
-    //     console.log('EXPLAIN: ', JSON.stringify(result, '', 2));
-    // });
-
     db.query(
         'SELECT * FROM nj_user WHERE email = $1',
         [email]
