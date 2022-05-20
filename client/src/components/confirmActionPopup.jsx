@@ -16,14 +16,11 @@ export default function ConfirmActionPopup({ nextStatus, handleClose, handleConf
   const [contractorPriceState, setContractorPrice] = useState('');
 
   const confirmMessageByNextStatus = {
-    REQUESTED: 'Please confirm job request',
-    REJECTED_BY_CONTRACTOR: 'Please confirm task rejection',
-    REJECTED_BY_CUSTOMER: 'Please confirm task rejection',
+    OPENED: 'Please confirm task open',
     ASSIGNED: 'Please confirm task assignment',
     RESOLVED: 'Please confirm task resolve',
-    DISPUTE: 'Open dispute?',
-    CANCELLED: 'Cancel task?',
-    DONE: 'Pleace confirm that you have received the result',
+    REOPENED: 'Please confirm task reopen',
+    DONE: 'Please confirm that you have received the result',
   };
 
   const handleContractorPriceChange = event => {

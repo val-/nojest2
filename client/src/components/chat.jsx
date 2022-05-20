@@ -109,20 +109,16 @@ export default function Chat({ task }) {
 
   const getHistoryRecordAuthor = status => {
     if (
-      status === 'JUST_VIEWED' ||
-      status === 'REQUESTED' ||
-      status === 'REJECTED_BY_CONTRACTOR' ||
-      status === 'RESOLVED' ||
-      status === 'CANCELLED'
+      status === 'OPENED' ||
+      status === 'ASSIGNED' ||
+      status === 'RESOLVED'
     ) {
       return task.contractorId;
     } else if (
-      status === 'REJECTED_BY_CUSTOMER' ||
-      status === 'ASSIGNED' ||
-      status === 'DISPUTE' ||
+      status === 'REOPENED' ||
       status === 'DONE'
     ) {
-      return task.order.authorId;
+      return task.taskAuthorId;
     } else {
       return -1;
     }

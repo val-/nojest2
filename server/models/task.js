@@ -1,5 +1,16 @@
 const db = require('../config/database');
 
+const listenersByTask = {};
+
+const notifyListeners = (taskId, dateTime) => {
+    if (listenersByTask[taskId]) {
+        listenersByTask[taskId].forEach(cb => {
+            cb({ lastMessageDateTime: dateTime });
+        });
+        listenersByTask[taskId] = [];
+    }
+}
+
 const validateTaskData = data => new Promise((resolve, reject) => {
     if (!data.title) {
         reject('Title missing');
@@ -62,14 +73,54 @@ const addTaskHistory = task => new Promise((resolve, reject) => {
     });
 });
 
+const addTaskHistoryRecord = (taskId, nextStatus, dateTime) => new Promise((resolve, reject) => {
+    db.query(
+        `
+            INSERT INTO nj_task_history
+            (
+                task_id,
+                date_time,
+                status
+            )
+            VALUES ($1, $2, $3)
+            returning id
+        `,
+        [
+            taskId,
+            dateTime,
+            nextStatus
+        ]
+    ).then(result => {
+        if (
+            result &&
+            result.rows &&
+            result.rows[0] &&
+            result.rows[0].id
+        ) {
+            resolve(result.rows[0].id);
+        } else {
+            reject('Task history add error');
+        }
+    }).catch(reject);
+});
+
+const changeStatus = (taskId, nextStatus) => new Promise((resolve, reject) => {
+    const dateTime = new Date();
+    addTaskHistoryRecord(taskId, nextStatus, dateTime).then(resp => {
+        notifyListeners(taskId, dateTime);
+        resolve(resp);
+    }, reject);
+});
+
 module.exports = {
 
     statusFlowByContractor,
 
     statusFlowByAuthor,
 
+    changeStatus,
+
     create: data => new Promise((resolve, reject) => {
-        console.log('data: ', data);
         validateTaskData(data).then(() => db.query(
             `
                 INSERT INTO nj_task
@@ -165,6 +216,13 @@ module.exports = {
         }, () => {
             reject('getActualTasksByJect() method error');
         });
+    }),
+
+    waitStatusChangeByTask: taskId => new Promise((resolve) => {
+        if (!listenersByTask[taskId]) {
+            listenersByTask[taskId] = [];
+        }
+        listenersByTask[taskId].push(resolve);
     }),
 
 };

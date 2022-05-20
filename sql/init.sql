@@ -26,7 +26,6 @@ CREATE TYPE nj_task_status AS ENUM (
     'ASSIGNED',
     'RESOLVED',
     'REOPENED',
-    'CANCELLED',
     'DONE'
 );
 

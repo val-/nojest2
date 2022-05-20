@@ -17,16 +17,12 @@ const getUsers = require('./handlers/getUsers');
 const getTasksByJect = require('./handlers/getTasksByJect');
 const getTask = require('./handlers/getTask');
 const getUserTasks = require('./handlers/getUserTasks');
-
-/*
-const getUserJobs = require('./handlers/getUserJobs');
+const changeTaskStatus = require('./handlers/changeTaskStatus');
+const sendMessage = require('./handlers/sendMessage');
 const getMessagesByTask = require('./handlers/getMessagesByTask');
 const waitMessagesByTask = require('./handlers/waitMessagesByTask');
 const waitStatusChangeByTask = require('./handlers/waitStatusChangeByTask');
-const sendMessage = require('./handlers/sendMessage');
-const changeTaskStatus = require('./handlers/changeTaskStatus');
 const getUserInfoById = require('./handlers/getUserInfoById');
-*/
 
 router.get('/session-context', jsonParser, sessionContext);
 router.post('/login', jsonParser, login);
@@ -43,15 +39,11 @@ router.get('/user-tasks', getUserTasks);
 router.get('/users', getUsers);
 router.get('/tasks-by-ject/:jectId', getTasksByJect);
 router.get('/task/:taskId', getTask);
-
-/*
-router.get('/user/:userId', getUserInfoById);
-router.get('/user-jobs', getUserJobs);
+router.post('/change-task-status', jsonParser, changeTaskStatus);
+router.post('/send-message', jsonParser, sendMessage);
 router.get('/messages-by-task/:taskId', getMessagesByTask);
 router.get('/wait-messages-by-task/:taskId', waitMessagesByTask);
 router.get('/wait-status-change-by-task/:taskId', waitStatusChangeByTask);
-router.post('/send-message', jsonParser, sendMessage);
-router.post('/change-task-status', jsonParser, changeTaskStatus);
-*/
+router.get('/user/:userId', getUserInfoById);
 
 module.exports = router;

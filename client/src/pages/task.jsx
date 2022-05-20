@@ -7,6 +7,7 @@ import {
   Button,
   Box,
   Card,
+  CardMedia,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import MainLayout from '../components/mainLayout';
@@ -32,12 +33,18 @@ const useStyles = makeStyles(theme => ({
   cardActionButton: {
     marginLeft: theme.spacing(2),
   },
+  media: {
+    whiteSpace: 'pre',
+    padding: theme.spacing(2, 9),
+    background: 'rgba(0,0,0,0.17)',
+    borderTop: 'rgba(0,0,0,0.3) 1px solid',
+    borderBottom: 'rgba(0,0,0,0.3) 1px solid',
+  },
 }));
 
 const TaskPage = () => {
 
   const classes = useStyles();
-  const history = useHistory();
   let { taskId } = useParams();
 
   const [initStartedState, setInitStarted] = useState(false);
@@ -47,13 +54,10 @@ const TaskPage = () => {
 
 
   const actionButtonsByNextStatus = {
-    REQUESTED: 'Request this job',
-    REJECTED_BY_CONTRACTOR: 'Reject',
-    REJECTED_BY_CUSTOMER: 'Reject',
+    OPENED: 'Open',
     ASSIGNED: 'Assign',
     RESOLVED: 'Resolve',
-    DISPUTE: 'Dispute',
-    CANCELLED: 'Cancel',
+    REOPENED: 'Reopen',
     DONE: 'Done',
   };
 
@@ -71,10 +75,6 @@ const TaskPage = () => {
       backend.waitStatusChangeByTask(taskId).then(updateTask);
     }, setError);
   }
-
-  const openJect = jectId => {
-    history.push(`/ject/${jectId}`);
-  };
 
   const confirmStatusChangeHandler = params => {
     setNextStatusDialog(false);
@@ -106,58 +106,27 @@ const TaskPage = () => {
     </>
   );
 
-  const generateJectCard = ject => (
-    !ject ? '':
-    <Card square className={classes.card}>
-      <CardHeader
-        className={classes.cardHeader}
-        action={
-          <Button
-            className={classes.cardActionButton}
-            color="primary"
-            variant="contained"
-            onClick={() => { openJect(ject.id) }}
-          >
-            Go to project
-          </Button>
-        }
-        title={ject.title}
-        subheader={`# ${ject.code}`}
-      >
-      </CardHeader>
-    </Card>
-  );
-
   const generateTaskCard = task => (
     task.id === undefined ? '':
     <Card square className={classes.card}>
       <CardHeader
         className={classes.cardHeader}
-        avatar={
-          <UserPic userId={task.contractorId}/>
-        }
         action={
           generateTaskCardActions(task.nextStatusVariants)
         }
-        title={
-          <>
-            { task.status }
-            { 
-              task.status === 'REQUESTED' &&
-              <span> { utils.formatPrice(task.contractorPrice) }</span>
-            }
-          </>
-        }
-        subheader={`task #${task.id}`}
+        title={ task.title }
+        subheader={ task.status }
       >
       </CardHeader>
+      <CardMedia className={classes.media}>
+        { task.description }
+      </CardMedia>
     </Card>
   );
 
   return (
     <MainLayout>
       <Box className={classes.root}>
-        { generateJectCard(taskState.ject) }
         { generateTaskCard(taskState) }
         { taskState.id === undefined ? '':
           <Card square className={classes.card}>
