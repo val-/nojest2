@@ -64,7 +64,8 @@ CREATE TABLE nj_member(
 
 CREATE TABLE nj_role(
     id SERIAL PRIMARY KEY,
-    name varchar(255)
+    name varchar(255),
+    code varchar(255) NOT NULL UNIQUE,
 );
 
 CREATE TABLE nj_member_role(
