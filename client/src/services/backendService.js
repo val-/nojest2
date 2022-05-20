@@ -14,6 +14,7 @@ export const backendService = {
     getJect,
     getTask,
     getUserJectsList,
+    getUserTasksList,
     getUserJobsList,
     getUsersList,
     updateProfile,
@@ -103,6 +104,10 @@ function getUserInfo(userId) {
 
 function getUserJectsList() {
     return fetchJSON('/api/user-jects')
+}
+
+function getUserTasksList() {
+    return fetchJSON('/api/user-tasks')
 }
 
 function getUserJobsList() {

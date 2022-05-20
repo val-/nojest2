@@ -16,6 +16,7 @@ const getUserJects = require('./handlers/getUserJects');
 const getUsers = require('./handlers/getUsers');
 const getTasksByJect = require('./handlers/getTasksByJect');
 const getTask = require('./handlers/getTask');
+const getUserTasks = require('./handlers/getUserTasks');
 
 /*
 const getUserJobs = require('./handlers/getUserJobs');
@@ -38,6 +39,7 @@ router.post('/create-ject', jsonParser, createJect);
 router.post('/create-task', jsonParser, createTask);
 router.get('/ject/:jectId', getJect);
 router.get('/user-jects', getUserJects);
+router.get('/user-tasks', getUserTasks);
 router.get('/users', getUsers);
 router.get('/tasks-by-ject/:jectId', getTasksByJect);
 router.get('/task/:taskId', getTask);

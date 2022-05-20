@@ -12,7 +12,10 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
 import { backendService as backend } from '../services/backendService';
+import ScreenLocker from '../components/screenLocker';
+import Alert from '@material-ui/lab/Alert';
 import MainLayout from '../components/mainLayout';
+import RecentTasksCard from '../components/recentTasksCard';
 
 const useStyles = makeStyles(theme => ({
 
@@ -23,6 +26,17 @@ const useStyles = makeStyles(theme => ({
 
   media: {
     height: 160,
+  },
+
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+  },
+
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
   },
 
 }));
@@ -40,6 +54,22 @@ const DashboardPage = props => {
       setAuthorizedUser(authorizedUser);
     }
   }, [authorizedUserState]);
+
+  const [initStartedState, setInitStarted] = useState(false);
+  const [tasksReadyState, setTasksReady] = useState(false);
+  const [tasksState, setTasks] = useState([]);
+  const [errorState, setError] = useState(false);
+
+
+  useEffect(() => {
+    if (!initStartedState) {
+        setInitStarted(true);
+        backend.getUserTasksList().then(resp => {
+            setTasks(resp);
+            setTasksReady(true);
+        }, setError);
+    }
+  }, [initStartedState]);
 
   const openPage = code => {
     history.push(`/${code}`);
@@ -63,29 +93,6 @@ const DashboardPage = props => {
       <CardActions>
         <Button size="small" color="primary" onClick={() => { openPage('create-ject'); }}>
           New project
-        </Button>
-      </CardActions>
-    </Card>
-  );
-
-  const createTaskCard = (
-    <Card square className={classes.card}>
-      <CardActionArea onClick={() => { openPage('create-task'); }}>
-        <CardMedia className={classes.media} title="New task">
-          <img src="static/images/clip/work.jpg" alt="New task"/>
-        </CardMedia>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Create new task
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Fill in you task information.
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" onClick={() => { openPage('create-task'); }}>
-          New task
         </Button>
       </CardActions>
     </Card>
@@ -116,13 +123,27 @@ const DashboardPage = props => {
     </Card>
   );
 
-  return (
-    <MainLayout>
-      { createJectCard }
-      { createTaskCard }
-      { jectsCard }
-    </MainLayout>
-  );
+
+  if (!tasksReadyState || !authorizedUserState) {
+    return <ScreenLocker />;
+  } else {
+    return (
+      <MainLayout>
+        { errorState &&
+          <Alert
+            severity="error"
+            className={classes.alert}
+          >
+            {errorState}
+          </Alert>
+        }
+        { createJectCard }
+        { jectsCard }
+        <RecentTasksCard tasks={ tasksState }/>
+      </MainLayout>
+    );
+  }
+
 
 };
 

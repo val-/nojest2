@@ -147,9 +147,10 @@ module.exports = {
 
     getActualTasksByUser: userId => new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM nj_task'
+            'SELECT * FROM nj_task WHERE task_author_id = $1 OR contractor_id = $1',
+            [userId]
         ).then(result => {
-            resolve(result.rows.map(generateTaskData));
+            Promise.all(result.rows.map(generateTaskData).map(addTaskHistory)).then(resolve, reject);
         }, () => {
             reject('getActualTasksByUser() method error');
         });
