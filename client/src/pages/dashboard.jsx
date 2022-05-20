@@ -110,8 +110,6 @@ const DashboardPage = props => {
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             View personal tasks by projects. Direct task team chat.
-            <br/>
-            We will notify you about task changes.
           </Typography>
         </CardContent>
       </CardActionArea>
