@@ -109,12 +109,12 @@ export default function Chat({ task }) {
 
   const getHistoryRecordAuthor = status => {
     if (
-      status === 'OPENED' ||
       status === 'ASSIGNED' ||
       status === 'RESOLVED'
     ) {
       return task.contractorId;
     } else if (
+      status === 'OPENED' ||
       status === 'REOPENED' ||
       status === 'DONE'
     ) {
