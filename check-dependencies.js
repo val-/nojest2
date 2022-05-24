@@ -1,3 +1,4 @@
+//const packageLock = require('./client/package-lock.json');
 const packageLock = require('./package-lock.json');
 const axios = require('axios');
 
@@ -39,7 +40,8 @@ function doCheck(packageLockObj, toxicList) {
   };
 
   checkDependencies(packageLockObj.dependencies);
-
+  
+  console.log('');
   console.log('Toxic list length: ', toxicList.length);
   console.log('Total dependencies: ', plainList.length);
 
@@ -61,5 +63,8 @@ function doCheck(packageLockObj, toxicList) {
   if (!toxicCount) {
     console.log('\x1b[32m%s\x1b[0m', 'Toxic dependency not found');
   }
+  console.log('');
 
 }
+
+
