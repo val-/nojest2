@@ -1,5 +1,5 @@
-//const packageLock = require('./client/package-lock.json');
-const packageLock = require('./package-lock.json');
+const packageLock = require('./client/package-lock.json');
+//const packageLock = require('./package-lock.json');
 const axios = require('axios');
 
 const toxicListUrl = `https://raw.githubusercontent.com/stravnik/toxic-repos/main/data/json/toxic-repos.json`;
