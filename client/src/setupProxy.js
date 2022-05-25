@@ -8,6 +8,7 @@ module.exports = function(app) {
     if (USE_PROXY) {
         app.use([
             '/api',
+            '/wiki-test',
         ], createProxyMiddleware({
             target: USE_PROXY,
             changeOrigin: true,

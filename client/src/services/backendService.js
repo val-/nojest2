@@ -21,6 +21,8 @@ export const backendService = {
     uploadAvatar,
     getUserInfo,
     changeTaskStatus,
+    getWikiIndex,
+    getWikiPage,
 };
 
 let sessionContextState;
@@ -116,6 +118,14 @@ function getUserJobsList() {
 
 function getUsersList() {
     return fetchJSON('/api/users')
+}
+
+function getWikiIndex() {
+    return fetchJSON('/wiki-test/JSON/index.json')
+}
+
+function getWikiPage(page) {
+    return fetchJSON(`/wiki-test/JSON/${page}`)
 }
 
 function updateProfile(params) {

@@ -14,10 +14,10 @@ import RegistrationPage from './pages/registration';
 import ProfilePage from './pages/profile';
 import CreateJectPage from './pages/createJect';
 import CreateTaskPage from './pages/createTask';
+import GenerateTaskPage from './pages/generateTask';
 import CreateVersionPage from './pages/createVersion';
 import ProfileActivationPage from './pages/profileActivation';
 import DashboardPage from './pages/dashboard';
-//import JobsPage from './pages/jobs';
 import JectsPage from './pages/jects';
 import JectPage from './pages/ject';
 import TaskPage from './pages/task';
@@ -93,6 +93,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute exact path="/create-task">
               <CreateTaskPage />
+            </PrivateRoute>
+            <PrivateRoute exact path="/generate-task">
+              <GenerateTaskPage />
             </PrivateRoute>
             <PrivateRoute exact path="/create-version">
               <CreateVersionPage />
