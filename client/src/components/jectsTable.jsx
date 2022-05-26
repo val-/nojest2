@@ -6,7 +6,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Card from '@material-ui/core/Card';
-import JectsTableRow from './jectssTableRow';
+import JectsTableRow from './jectsTableRow';
 
 export default function JectsTable({ jectsList }) {
   return (    

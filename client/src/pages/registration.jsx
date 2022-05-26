@@ -5,8 +5,6 @@ import {
   TextField,
   Box,
   Typography,
-  FormControlLabel,
-  Switch,
   Link,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';

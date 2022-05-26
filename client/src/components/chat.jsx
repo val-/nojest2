@@ -68,19 +68,51 @@ export default function Chat({ task }) {
   const [initStartedState, setInitStarted] = useState(false);
 
   useEffect(() => {
+
+    const getHistoryRecordAuthor = status => {
+      if (
+        status === 'ASSIGNED' ||
+        status === 'RESOLVED'
+      ) {
+        return task.contractorId;
+      } else if (
+        status === 'OPENED' ||
+        status === 'REOPENED' ||
+        status === 'DONE'
+      ) {
+        return task.taskAuthorId;
+      } else {
+        return -1;
+      }
+    };
+
+    const mergeLettersWithHistory = (letters=[], history=[]) => {
+      return letters.map(msg => ({
+        authorId: msg.authorId,
+        dateTime: msg.dateTime,
+        letter: msg.letter,
+      })).concat(history.map(rec => ({
+        authorId: getHistoryRecordAuthor(rec.status),
+        dateTime: rec.dateTime,
+        isStatusRecord: true,
+        letter: rec.status,
+      }))).sort(dateTimeSorter);
+    };
+
+    const updateLetters = () => {
+      backend.getLettersByTask(task.id).then(resp => {
+        setLetters(mergeLettersWithHistory(resp, task.history));
+        updateScroll();
+        backend.waitLettersByTask(task.id).then(updateLetters);
+      });
+    };
+
     if (!initStartedState) {
       setInitStarted(true);
       updateLetters();
     }
-  }, [initStartedState, task.id]);
 
-  const updateLetters = () => {
-    backend.getLettersByTask(task.id).then(resp => {
-      setLetters(mergeLettersWithHistory(resp, task.history));
-      updateScroll();
-      backend.waitLettersByTask(task.id).then(updateLetters);
-    });
-  };
+  }, [initStartedState, task, lettersState]);
 
   const dateTimeSorter = (a, b) => {
     const A = moment(a.dateTime);
@@ -91,36 +123,6 @@ export default function Chat({ task }) {
       return -1;
     } else {
       return 0;
-    }
-  };
-
-  const mergeLettersWithHistory = (letters=[], history=[]) => {
-    return letters.map(msg => ({
-      authorId: msg.authorId,
-      dateTime: msg.dateTime,
-      letter: msg.letter,
-    })).concat(history.map(rec => ({
-      authorId: getHistoryRecordAuthor(rec.status),
-      dateTime: rec.dateTime,
-      isStatusRecord: true,
-      letter: rec.status,
-    }))).sort(dateTimeSorter);
-  };
-
-  const getHistoryRecordAuthor = status => {
-    if (
-      status === 'ASSIGNED' ||
-      status === 'RESOLVED'
-    ) {
-      return task.contractorId;
-    } else if (
-      status === 'OPENED' ||
-      status === 'REOPENED' ||
-      status === 'DONE'
-    ) {
-      return task.taskAuthorId;
-    } else {
-      return -1;
     }
   };
 
@@ -135,10 +137,12 @@ export default function Chat({ task }) {
       letter: text,
     }).then(() => {
       setMessage('');
+      /*
       backend.getLettersByTask(task.id).then(resp => {
         setLetters(mergeLettersWithHistory(resp, task.history));
         updateScroll();
       });
+      */
     });
   };
 

@@ -6,28 +6,16 @@ import {
   CardActions,
   CardMedia,
   Button,
-  TextField,
   Box,
   Avatar,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from '@material-ui/core';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import MainLayout from '../components/mainLayout';
 import ScreenLocker from '../components/screenLocker';
-import UserPic from '../components/userPic';
 import ConfirmActionPopup from '../components/confirmActionPopup';
 import { backendService as backend } from '../services/backendService';
-import { utilsService as utils } from '../services/utilsService';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -89,7 +77,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const JectPage = props => {
+const JectPage = () => {
 
   const classes = useStyles();
   const history = useHistory();
@@ -110,13 +98,6 @@ const JectPage = props => {
         }, setError);
     }
   }, [initStartedState, jectId, filedsState]);
-
-  const handleChange = event => {
-    event.persist();
-  };
-
-  const handleDeadlineChange = newDate => {
-  };
 
   const handleSubmit = event => {
     event.preventDefault();

@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import {
   CardHeader,
   Button,
@@ -10,12 +9,11 @@ import {
   CardMedia,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import Alert from '@material-ui/lab/Alert';
 import MainLayout from '../components/mainLayout';
 import Chat from '../components/chat';
-import UserPic from '../components/userPic';
 import ConfirmActionPopup from '../components/confirmActionPopup';
 import { backendService as backend } from '../services/backendService';
-import { utilsService as utils } from '../services/utilsService';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,19 +60,20 @@ const TaskPage = () => {
   };
 
   useEffect(() => {
+    const updateTask = () => {
+      setTask({});
+      backend.getTask(taskId).then(resp => {
+        setTask(resp);
+        backend.waitStatusChangeByTask(taskId).then(updateTask);
+      }, setError);
+    }
     if (!initStartedState) {
         setInitStarted(true);
         updateTask();
     }
   }, [initStartedState, taskId, taskState]);
 
-  const updateTask = () => {
-    setTask({});
-    backend.getTask(taskId).then(resp => {
-      setTask(resp);
-      backend.waitStatusChangeByTask(taskId).then(updateTask);
-    }, setError);
-  }
+
 
   const confirmStatusChangeHandler = params => {
     setNextStatusDialog(false);
@@ -127,6 +126,14 @@ const TaskPage = () => {
   return (
     <MainLayout>
       <Box className={classes.root}>
+        { errorState &&
+          <Alert
+            severity="error"
+            className={classes.alert}
+          >
+            {errorState}
+          </Alert>
+        }
         { generateTaskCard(taskState) }
         { taskState.id === undefined ? '':
           <Card square className={classes.card}>

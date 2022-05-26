@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   Typography,
@@ -9,7 +9,6 @@ import {
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
-import { backendService as backend } from '../services/backendService';
 import { makeStyles } from '@material-ui/styles';
 
 

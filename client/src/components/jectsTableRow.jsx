@@ -1,7 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 function JectsTableRow({ ject }) {

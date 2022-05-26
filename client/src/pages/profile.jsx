@@ -5,21 +5,8 @@ import {
   TextField,
   Box,
   Avatar,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Chip,
   Typography,
 } from '@material-ui/core';
-import LanguageIcon from '@material-ui/icons/Language';
-import WorkIcon from '@material-ui/icons/Work';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import Rating from '@material-ui/lab/Rating';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/styles';
 import MainLayout from '../components/mainLayout';
@@ -113,8 +100,6 @@ const ProfilePage = props => {
       }));
     }
   }, [formState]);
-
-  const handleDelete = () => {};
 
   const handleUpdateProfile = event => {
     event.preventDefault();

@@ -9,7 +9,6 @@ import {
   FormControl,
   InputLabel,
   Select,
-  Badge,
   MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -124,46 +123,6 @@ const CreateTaskPage = () => {
     history.push(`/task/${resp.taskId}`);
   };
 
-  const getJectCodeById = jectId => {
-    for (let i=0; i<jectsState.length; i++) {
-      if (jectsState[i].id === jectId) {
-        return jectsState[i].code;
-      }
-    }
-  };
-
-  const doGenerateTasksList = (titles) => {
-
-    return new Promise((resolve, reject) => {
-
-      if (!generatorState) {
-        resolve();
-      }
-
-      if (titles[generatorCountState]) {
-        
-        backend.getWikiPage(titles[generatorCountState]).then(resp => {
-          formState.values.title = resp.title;
-          formState.values.description = resp.text;
-
-          backend.createTask(formState.values).then(() => {
-            setGeneratorCount(generatorCountState + 1);
-          }, () => {
-            setErrorCount(errorCountState + 1);
-          });
-
-        });
-      
-      } else {
-
-        resolve();
-
-      }
-
-    });
-
-  };
-
   const generateTaskStop = () => {
     setGenerator(false);
   };
@@ -185,6 +144,47 @@ const CreateTaskPage = () => {
 
 
   useEffect(() => {
+
+    const getJectCodeById = jectId => {
+      for (let i=0; i<jectsState.length; i++) {
+        if (jectsState[i].id === jectId) {
+          return jectsState[i].code;
+        }
+      }
+    };
+
+    const doGenerateTasksList = (titles) => {
+
+      return new Promise((resolve, reject) => {
+
+        if (!generatorState) {
+          resolve();
+        }
+
+        if (titles[generatorCountState]) {
+          
+          backend.getWikiPage(titles[generatorCountState]).then(resp => {
+            formState.values.title = resp.title;
+            formState.values.description = resp.text;
+
+            backend.createTask(formState.values).then(() => {
+              setGeneratorCount(generatorCountState + 1);
+            }, () => {
+              setErrorCount(errorCountState + 1);
+            });
+
+          });
+        
+        } else {
+
+          resolve();
+
+        }
+
+      });
+
+    };
+
     if (!initStartedState) {
         setInitStarted(true);
         backend.getUserJectsList().then(resp => {
@@ -213,7 +213,7 @@ const CreateTaskPage = () => {
     }
 
 
-  }, [initStartedState, generatorState, wikiIndexState, generatorCountState]);
+  }, [initStartedState, generatorState, wikiIndexState, generatorCountState, formState.values, jectsState, errorCountState]);
 
   if (!jectsReadyState || !usersReadyState) {
     return <ScreenLocker />;

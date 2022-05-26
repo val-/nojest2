@@ -10,7 +10,6 @@ import {
   Switch,
   InputLabel,
   Select,
-  MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
