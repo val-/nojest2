@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 import MainLayout from '../components/mainLayout';
 import ScreenLocker from '../components/screenLocker';
 import ConfirmActionPopup from '../components/confirmActionPopup';
+import GanttChart from '../components/ganttChart';
 import { backendService as backend } from '../services/backendService';
 import { useParams } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   card: {
-    width: theme.spacing(120),
+    width: theme.spacing(160),
     marginBottom: theme.spacing(2),
   },
   cardActionButton: {
@@ -211,9 +212,17 @@ const JectPage = () => {
     <MainLayout>
       <Box className={classes.root}>
         { jectCard }
+
+        {/* 
         <Box className={classes.tasks}>
           { filedsState.tasks && filedsState.tasks.map(generateTaskCard) }
         </Box>
+        */}
+
+        <GanttChart tasks={filedsState.tasks} />
+
+        {/* <KanbanChart tasks={filedsState.tasks} /> */}
+
         <ConfirmActionPopup
           nextStatus={nextStatusDialogState}
           handleClose={() => { setNextStatusDialog(false); }}

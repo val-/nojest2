@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   card: {
-    width: theme.spacing(120),
+    width: theme.spacing(160),
     marginBottom: theme.spacing(2),
   },
   cardActionButton: {

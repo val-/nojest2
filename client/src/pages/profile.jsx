@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   paper: {
-    width: theme.spacing(120),
+    width: theme.spacing(160),
     display: 'flex',
     padding: theme.spacing(8),
   },

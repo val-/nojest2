@@ -218,6 +218,17 @@ module.exports = {
         });
     }),
 
+    getActualTasksByJectWithHist: jectId => new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM nj_task WHERE ject_id = $1',
+            [jectId]
+        ).then(result => {
+            Promise.all(result.rows.map(generateTaskData).map(addTaskHistory)).then(resolve, reject);
+        }, () => {
+            reject('getActualTasksByJect() method error');
+        });
+    }),
+
     waitStatusChangeByTask: taskId => new Promise((resolve) => {
         if (!listenersByTask[taskId]) {
             listenersByTask[taskId] = [];

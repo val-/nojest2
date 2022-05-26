@@ -105,6 +105,34 @@ module.exports = {
         });
     }),
 
+    getJectWithTasksAndHist: jectId => new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM nj_ject WHERE id = $1',
+            [jectId]
+        ).then(result => {
+            const jectData = result.rows[0];
+
+            if (jectData) {
+                Task.getActualTasksByJectWithHist(jectId).then(tasks => {
+                    resolve({
+                        id: jectData.id,
+                        code: jectData.code,
+                        title: jectData.title,
+                        description: jectData.description,
+                        status: jectData.status,
+                        tasks,
+                    });
+                }, () => {
+                    reject('Ject tasks not found');
+                })
+            } else {
+                reject('Ject not found');
+            }
+        }, () => {
+            reject('getJectWithTasksAndHist() method error');
+        });
+    }),
+
     getActualJectsByUser: userId => new Promise((resolve, reject) => {
         db.query(
             'SELECT * FROM nj_ject'
