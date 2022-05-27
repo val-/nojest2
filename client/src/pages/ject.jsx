@@ -215,11 +215,11 @@ const JectPage = () => {
       <Box className={classes.root}>
         { jectCard }
 
-        {/* 
+
         <Box className={classes.tasks}>
           { filedsState.tasks && filedsState.tasks.map(generateTaskCard) }
         </Box>
-        */}
+
 
         <GanttChart tasks={filedsState.tasks} />
 

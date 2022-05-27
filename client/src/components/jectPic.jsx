@@ -4,15 +4,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
-  ava_A: { background: 'hsl(360, 100%, 70%)' },
-  ava_E: { background: 'hsl(315, 100%, 70%)' },
-  ava_H: { background: 'hsl(270, 100%, 70%)' },
-  ava_D: { background: 'hsl(225, 100%, 70%)' },
-  ava_B: { background: 'hsl(180, 100%, 70%)' },
-  ava_C: { background: 'hsl(135, 100%, 70%)' },
-  ava_G: { background: 'hsl(90, 100%, 70%)' },
-  ava_F: { background: 'hsl(45, 100%, 70%)' },
-  ava_J: { background: 'hsl(20, 100%, 70%)' },
+  ava: { fontWeight: 'bold', color: '#ffffff', textShadow: '1px 1px 2px rgba(0,0,0,0.3), 0 0 1em rgba(0,0,0,0.2)' },
+  ava_A: { background: 'hsl(360, 50%, 52%)' },
+  ava_E: { background: 'hsl(315, 50%, 52%)' },
+  ava_H: { background: 'hsl(270, 50%, 52%)' },
+  ava_D: { background: 'hsl(225, 50%, 52%)' },
+  ava_F: { background: 'hsl(180, 50%, 52%)' },
+  ava_C: { background: 'hsl(135, 50%, 52%)' },
+  ava_G: { background: 'hsl(90, 50%, 52%)' },
+  ava_B: { background: 'hsl(45, 50%, 52%)' },
+  ava_J: { background: 'hsl(20, 50%, 52%)' },
 }));
 
 export default function JectPic({ ject }) {
@@ -25,7 +26,7 @@ export default function JectPic({ ject }) {
       );
       return (
         <Tooltip title={''} arrow>
-          <Avatar className={classes[`ava_${firstLetters[0]}`]} variant="rounded">
+          <Avatar className={[ classes.ava, classes[`ava_${firstLetters[0]}`] ]} variant="rounded">
             {firstLetters[0] || ''}
           </Avatar>
         </Tooltip>

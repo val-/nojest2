@@ -35,7 +35,7 @@ const generateTaskData = taskData => ({
 
 const statusFlowByContractor = {
     'OPENED': [ 'ASSIGNED', 'RESOLVED' ],
-    'ASSIGNED': [ 'OPENED' ],
+    'ASSIGNED': [ 'OPENED', 'RESOLVED' ],
     'RESOLVED': [],
     'REOPENED': [ 'ASSIGNED', 'RESOLVED' ],
     'DONE': [],

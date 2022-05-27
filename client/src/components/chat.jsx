@@ -10,6 +10,7 @@ import {
 import SendIcon from '@material-ui/icons/Send';
 import moment from 'moment';
 import UserPic from '../components/userPic';
+import StatusLabel from '../components/statusLabel';
 import generateRandomText from '../utils/generateRandomText';
 
 import { backendService as backend } from '../services/backendService';
@@ -173,10 +174,7 @@ export default function Chat({ task }) {
         className={classes.listItemText}
         primary={
           message.isStatusRecord ?
-          <Chip
-            className={classes.status}
-            label={message.letter}
-          /> :
+          <StatusLabel status={message.letter} variant="wide"/> :
           message.letter
         }
         secondary={ moment(message.dateTime).fromNow() }

@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
 import MainLayout from '../components/mainLayout';
 import Chat from '../components/chat';
+import StatusLabel from '../components/statusLabel';
 import ConfirmActionPopup from '../components/confirmActionPopup';
 import { backendService as backend } from '../services/backendService';
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   card: {
-    width: theme.spacing(160),
+    width: theme.spacing(60),
     marginBottom: theme.spacing(2),
   },
   cardActionButton: {
@@ -114,12 +115,14 @@ const TaskPage = () => {
           generateTaskCardActions(task.nextStatusVariants)
         }
         title={ task.title }
-        subheader={ task.status }
+        subheader={ 
+          <StatusLabel status={task.status}/>
+        }
       >
       </CardHeader>
-      <CardMedia className={classes.media}>
+      {/* <CardMedia className={classes.media}>
         { task.description }
-      </CardMedia>
+      </CardMedia> */}
     </Card>
   );
 

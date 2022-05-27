@@ -9,6 +9,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
+import StatusLabel from './statusLabel';
 
 const useStyles = makeStyles(theme => ({
 
@@ -72,7 +73,7 @@ export default function GanttChart({ tasks }) {
             { task.title } 
           </Typography>
           <Typography className={classes.secondaryHeading}>
-            { task.status } &nbsp;
+            <StatusLabel status={task.status}/> &nbsp;
             { moment(task.histIndex.OPENED).format("DD.MM.YYYY") } &nbsp; - &nbsp;
             { moment(task.histIndex.DEADLINE).format("DD.MM.YYYY") }
           </Typography>

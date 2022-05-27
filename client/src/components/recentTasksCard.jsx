@@ -15,6 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
+import StatusLabel from './statusLabel';
 
 const useStyles = makeStyles(theme => ({
 
@@ -25,16 +26,21 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
   },
 
+  head: {
+    
+  },
+
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '80%',
     flexShrink: 0,
+    padding: '5px 0',
   },
 
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
-    minWidth: theme.spacing(12),
+    minWidth: theme.spacing(11),
   },
 
   card: {
@@ -68,9 +74,12 @@ export default function RecentTasksCard({ tasks }) {
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={ `panel_${task.id}bh-content` }
+        className={classes.head}
         id={ `panel_${task.id}bh-header` }
       >
-        <Typography className={classes.secondaryHeading}>{ task.status }</Typography>
+        <Typography className={classes.secondaryHeading}>
+          <StatusLabel status={task.status}/>
+        </Typography>
         <Typography className={classes.heading}>{ task.title }</Typography>
       </AccordionSummary>
       <AccordionDetails>
