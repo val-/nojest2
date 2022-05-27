@@ -130,37 +130,15 @@ INSERT INTO nj_ject(
   status
 )
 VALUES
-(
-  'A',
-  'A poject example title',
-  'A poject example description',
-  'ACTIVE'
-),
-(
-  'B',
-  'B poject example title',
-  'B poject example description',
-  'ACTIVE'
-),
-(
-  'C',
-  'C poject example title',
-  'C poject example description',
-  'ACTIVE'
-),
-(
-  'D',
-  'D poject example title',
-  'D poject example description',
-  'ACTIVE'
-),
-(
-  'E',
-  'E poject example title',
-  'E poject example description',
-  'ACTIVE'
-);
-
+( 'A', 'Project A', 'Project description', 'ACTIVE' ),
+( 'B', 'Project B', 'Project description', 'ACTIVE' ),
+( 'C', 'Project C', 'Project description', 'ACTIVE' ),
+( 'D', 'Project D', 'Project description', 'ACTIVE' ),
+( 'E', 'Project E', 'Project description', 'ACTIVE' ),
+( 'F', 'Project F', 'Project description', 'ACTIVE' ),
+( 'G', 'Project G', 'Project description', 'ACTIVE' ),
+( 'H', 'Project H', 'Project description', 'ACTIVE' ),
+( 'J', 'Project J', 'Project description', 'ACTIVE' );
 
 
 -- FILLIN NOJEST APP TASKS

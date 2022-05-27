@@ -10,31 +10,31 @@ INSERT INTO nj_ject(
 VALUES
 (
   'A',
-  'A poject example title',
+  'Poject A',
   'A poject example description',
   'ACTIVE'
 ),
 (
   'B',
-  'B poject example title',
+  'Poject B',
   'B poject example description',
   'ACTIVE'
 ),
 (
   'C',
-  'C poject example title',
+  'Poject C',
   'C poject example description',
   'ACTIVE'
 ),
 (
   'D',
-  'D poject example title',
+  'Poject E',
   'D poject example description',
   'ACTIVE'
 ),
 (
   'E',
-  'E poject example title',
+  'Poject D',
   'E poject example description',
   'ACTIVE'
 );

@@ -1,6 +1,7 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import JectPic from './jectPic';
 import { useHistory } from 'react-router-dom';
 
 function JectsTableRow({ ject }) {
@@ -15,7 +16,7 @@ function JectsTableRow({ ject }) {
     <React.Fragment>
       <TableRow hover onClick={openJect}>
         <TableCell>
-          { ject.code }
+          <JectPic ject={ject}/>
         </TableCell>
         <TableCell>
           { ject.title }

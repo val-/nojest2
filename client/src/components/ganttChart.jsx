@@ -125,11 +125,6 @@ export default function GanttChart({ tasks }) {
         { tasks.map(task => generateLine(task, deltaTime, minTime)) }
 
       </div>
-      <div className={classes.footer}>
-        <Button size="small" color="primary" onClick={() => { openPage('create-task'); }}>
-          New task
-        </Button>
-      </div>
     </div>
   );
 

@@ -12,13 +12,6 @@ export default function JectsTable({ jectsList }) {
   return (    
     <TableContainer component={Card} square variant="elevation">
       <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell>Title</TableCell>
-            <TableCell>Status</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           {jectsList.map(
             jectData => <JectsTableRow key={jectData.id} ject={jectData} />

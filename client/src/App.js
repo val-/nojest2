@@ -97,6 +97,12 @@ function App() {
             <PrivateRoute exact path="/generate-task">
               <GenerateTaskPage />
             </PrivateRoute>
+            <PrivateRoute exact path="/create-task/:jectId">
+              <CreateTaskPage />
+            </PrivateRoute>
+            <PrivateRoute exact path="/generate-task/:jectId">
+              <GenerateTaskPage />
+            </PrivateRoute>
             <PrivateRoute exact path="/create-version">
               <CreateVersionPage />
             </PrivateRoute>

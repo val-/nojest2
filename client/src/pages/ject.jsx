@@ -16,6 +16,7 @@ import MainLayout from '../components/mainLayout';
 import ScreenLocker from '../components/screenLocker';
 import ConfirmActionPopup from '../components/confirmActionPopup';
 import GanttChart from '../components/ganttChart';
+import JectPic from '../components/jectPic';
 import { backendService as backend } from '../services/backendService';
 import { useParams } from 'react-router-dom';
 
@@ -108,6 +109,10 @@ const JectPage = () => {
     history.push(`/task/${taskId}`);
   }
 
+  const openPage = code => {
+    history.push(`/${code}`);
+  }
+
   if (!jectReadyState) {
     return <ScreenLocker />;
   }
@@ -116,12 +121,9 @@ const JectPage = () => {
     <Card square className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar>
-            {filedsState.title[0] || ''}
-          </Avatar>
+          <JectPic ject={filedsState}/>
         }
         title={filedsState.title}
-        subheader={`# ${filedsState.code}`}
       />
       <CardMedia className={classes.media}>
         {filedsState.description}
@@ -222,6 +224,12 @@ const JectPage = () => {
         <GanttChart tasks={filedsState.tasks} />
 
         {/* <KanbanChart tasks={filedsState.tasks} /> */}
+
+        <div className={classes.footer}>
+          <Button size="small" color="primary" onClick={() => { openPage(`create-task/${filedsState.id}`); }}>
+            New task
+          </Button>
+        </div>
 
         <ConfirmActionPopup
           nextStatus={nextStatusDialogState}
