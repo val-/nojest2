@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   paper: {
-    width: theme.spacing(160),
+    width: theme.spacing(120),
     padding: theme.spacing(8),
   },
   textField: {

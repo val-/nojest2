@@ -20,7 +20,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import ScreenLocker from '../components/screenLocker';
 import MainLayout from '../components/mainLayout';
 import { backendService as backend } from '../services/backendService';
@@ -71,7 +71,8 @@ const CreateTaskPage = () => {
 
   const classes = useStyles();
   const history = useHistory();
-  const mock = {};
+  const { jectId } = useParams();
+  const mock = { jectId };
 
   const [formState, setFormState] = useState({ values: mock });
   const [wikiIndexState, setWikiIndex] = useState([]);

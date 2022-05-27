@@ -5,6 +5,10 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
 } from '@material-ui/core';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -16,21 +20,30 @@ const useStyles = makeStyles(theme => ({
 
   root: {
     width: theme.spacing(60),
-    margin: theme.spacing(12, 4),
+    margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
   },
 
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
+    flexBasis: '80%',
     flexShrink: 0,
   },
 
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+    minWidth: theme.spacing(12),
   },
+
+  card: {
+    marginBottom: theme.spacing(4),
+  },
+
+  footer: {
+    padding: theme.spacing(1.5),
+  }
 
 }));
 
@@ -57,8 +70,8 @@ export default function RecentTasksCard({ tasks }) {
         aria-controls={ `panel_${task.id}bh-content` }
         id={ `panel_${task.id}bh-header` }
       >
-        <Typography className={classes.heading}>{ task.title }</Typography>
         <Typography className={classes.secondaryHeading}>{ task.status }</Typography>
+        <Typography className={classes.heading}>{ task.title }</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
@@ -70,17 +83,45 @@ export default function RecentTasksCard({ tasks }) {
 
   console.log('tasks: ', tasks);
 
+  const taskIdSorter = (a, b) => {
+    if (a.id > b.id) {
+      return -1;
+    } else if (a.id < b.id) {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
+
+  const tasksFiltered = tasks.sort(taskIdSorter).filter((t, n) => n < 8);
+
   return (
     <div className={classes.root}>
       <div className={classes.content}>
 
-        { tasks.map(generateAccordion) }
+        <Card square className={classes.card}>
+          <CardActionArea onClick={() => { openPage('tasks'); }}>
+            <CardMedia className={classes.media} title="Let`s view tasks">
+              <img src="static/images/clip/create.jpg" alt="Let`s view tasks"/>
+            </CardMedia>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Actual tasks
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                View personal tasks by user. Direct task team chat.
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-      </div>
-      <div className={classes.footer}>
-        <Button size="small" color="primary" onClick={() => { openPage('create-task'); }}>
-          New task
-        </Button>
+        { tasksFiltered.map(generateAccordion) }
+
+        <div className={classes.footer}>
+            <Button size="small" color="primary" onClick={() => { openPage('tasks'); }}>
+              View all tasks ({ tasks.length })
+            </Button>
+        </div>
       </div>
     </div>
   );
