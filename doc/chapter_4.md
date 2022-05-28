@@ -134,255 +134,330 @@ PostgreSQL поддерживает мощную систему правил д�
 
 Исполнитель принимает план и обрабатывает его рекурсивно, чтобы получить требуемый набор строк. Обработка выполняется по конвейеру, с получением данных по требованию. При вызове любого узла плана он должен выдать очередную строку, либо сообщить, что выдача строк завершена. [4.5]
 
-С полученными знаниями о физической реализации СУБД PostgreSQL был составлен список сущностей логической модели. В таблице ниже перечислены сущности, их поля, и отмечены связи между ними.
+С полученными знаниями о физической реализации СУБД PostgreSQL был составлен список сущностей логической модели. В таблицах ниже перечислены сущности, их поля, и отмечены связи между ними.
 
 <table>
-
   <tr>
     <th align="left">nj_user</th>
     <th align="left">Пользователь</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
     <td>full_name</td>
     <td>Полное имя</td>
+    <td>varchar(255)</td>
   </tr>
   <tr>
     <td>phone_number</td>
     <td>Номер телефона</td>
+    <td>varchar(30)</td>
   </tr>
   <tr>
     <td>email</td>
     <td>Электронная почта</td>
+    <td>varchar(255) NOT NULL UNIQUE</td>
   </tr>
   <tr>
     <td>email_confirmed</td>
     <td>Признак подтверждения почты</td>
+    <td>boolean</td>
   </tr>
   <tr>
     <td>email_confirm_token</td>
     <td>Токен подтверждения почты</td>
+    <td>varchar(64)</td>
   </tr>
   <tr>
     <td>password_hash</td>
     <td>Хэш пароля</td>
+    <td>varchar(64) NOT NULL</td>
   </tr>
   <tr>
     <td>avatar</td>
     <td>Фотография</td>
+    <td>text (Base 64)</td>
   </tr>
+</table>
 
-
+<table>
   <tr>
     <th align="left">nj_ject</th>
     <th align="left">Проект</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
     <td>code</td>
     <td>Кодификатор</td>
+    <td>varchar(64) NOT NULL UNIQUE</td>
   </tr>
   <tr>
     <td>title</td>
     <td>Название</td>
+    <td>varchar(255)</td>
   </tr>
   <tr>
     <td>description</td>
     <td>Описание</td>
+    <td>text</td>
   </tr>
   <tr>
     <td>status</td>
     <td>Статус</td>
+    <td>nj_ject_status</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_document</th>
     <th align="left">Документ</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
-    <td>ject_id <b>**</b></td>
+    <td>ject_id</td>
     <td>Идентификатор проекта</td>
+    <td>REFERENCES nj_ject(id)</td>
   </tr>
   <tr>
     <td>document_author_id <b>**</b></td>
     <td>Идентификатор автора</td>
+    <td>REFERENCES nj_user(id)</td>
   </tr>
   <tr>
     <td>url</td>
     <td>Адрес ресурса</td>
+    <td>text NOT NULL UNIQUE</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_member</th>
     <th align="left">Член проекта</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
-    <td>ject_id <b>**</b></td>
+    <td>ject_id</td>
     <td>Идентификатор проекта</td>
+    <td>REFERENCES nj_ject(id)</td>
   </tr>
   <tr>
     <td>user_id <b>**</b></td>
     <td>Идентификатор пользователя</td>
+    <td>REFERENCES nj_user(id)</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_role</th>
     <th align="left">Роль</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
     <td>name</td>
     <td>Название</td>
+    <td>varchar(255)</td>
   </tr>
   <tr>
     <td>code</td>
     <td>Код</td>
+    <td>varchar(255) NOT NULL UNIQUE</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_member_role</th>
     <th align="left">Роль члена проекта</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
-    <td>role_id <b>**</b></td>
+    <td>role_id</td>
     <td>Идентификатор роли</td>
+    <td>REFERENCES nj_role(id)</td>
   </tr>
   <tr>
-    <td>member_id <b>**</b></td>
+    <td>member_id</td>
     <td>Идентификатор члена проекта</td>
+    <td>REFERENCES nj_member(id</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_version</th>
     <th align="left">Версия проекта</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
-    <td>ject_id <b>**</b></td>
+    <td>ject_id</td>
     <td>Идентификатор проекта</td>
+    <td>REFERENCES nj_ject(id)</td>
   </tr>
   <tr>
     <td>title</td>
     <td>Название</td>
+    <td>varchar(255)</td>
   </tr>
   <tr>
     <td>description</td>
     <td>Описание</td>
+    <td>text</td>
   </tr>
   <tr>
     <td>status</td>
     <td>Статус</td>
+    <td>nj_version_status</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_task</th>
     <th align="left">Задача</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
     <td>title</td>
     <td>Название</td>
+    <td>varchar(255)</td>
   </tr>
   <tr>
     <td>description</td>
     <td>Описание</td>
+    <td>text</td>
   </tr>
   <tr>
-    <td>ject_id <b>**</b></td>
+    <td>ject_id</td>
     <td>Идентификатор проекта</td>
+    <td>REFERENCES nj_ject(id)</td>
   </tr>
   <tr>
-    <td>task_author_id <b>**</b></td>
+    <td>task_author_id</td>
     <td>Идентификатор автора задачи</td>
+    <td>REFERENCES nj_user(id)</td>
   </tr>
   <tr>
-    <td>contractor_id <b>**</b></td>
+    <td>contractor_id</td>
     <td>Идентификатор исполнителя</td>
+    <td>REFERENCES nj_user(id)</td>
   </tr>
   <tr>
     <td>deadline</td>
     <td>Срок выполнения</td>
+    <td>timestamp</td>
   </tr>
   <tr>
-    <td>parent_id <b>**</b></td>
+    <td>parent_id</td>
     <td>Идентификатор родительской задачи</td>
+    <td>REFERENCES nj_task(id)</td>
   </tr>
   <tr>
-    <td>target_version_id <b>**</b></td>
+    <td>target_version_id</td>
     <td>Идентификатор версии проекта</td>
+    <td>REFERENCES nj_version(id)</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_task_message</th>
     <th align="left">Сообщение</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
-    <td>task_id <b>**</b></td>
+    <td>task_id</td>
     <td>Идентификатор задачи</td>
+    <td>REFERENCES nj_task(id)</td>
   </tr>
   <tr>
     <td>date_time</td>
     <td>Дата и время отправки</td>
+    <td>timestamp</td>
   </tr>
   <tr>
-    <td>author_id <b>**</b></td>
+    <td>author_id</td>
     <td>Идентификатор отправителя</td>
+    <td>REFERENCES nj_user(id)</td>
   </tr>
   <tr>
     <td>letter</td>
     <td>Текст сообщения</td>
+    <td>text</td>
   </tr>
+</table>
 
+<table>
   <tr>
     <th align="left">nj_task_history</th>
     <th align="left">История задачи</th>
+    <th></th>
   </tr>
   <tr>
-    <td>id <b>*</b></td>
+    <td>id</td>
     <td>Идентификатор</td>
+    <td>SERIAL PRIMARY KEY</td>
   </tr>
   <tr>
-    <td>task_id <b>**</b></td>
+    <td>task_id</td>
     <td>Идентификатор задачи</td>
+    <td>REFERENCES nj_task(id)</td>
   </tr>
   <tr>
     <td>date_time</td>
     <td>Дата и время изменения</td>
+    <td>timestamp</td>
   </tr>
   <tr>
     <td>status</td>
     <td>Статус задачи</td>
+    <td>nj_task_status</td>
   </tr>
 
 </table>
