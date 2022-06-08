@@ -183,7 +183,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>text (Base 64)</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_ject</th>
@@ -216,7 +216,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>nj_ject_status</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_document</th>
@@ -244,7 +244,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>text NOT NULL UNIQUE</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_member</th>
@@ -267,7 +267,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>REFERENCES nj_user(id)</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_role</th>
@@ -290,7 +290,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>varchar(255) NOT NULL UNIQUE</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_member_role</th>
@@ -313,7 +313,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>REFERENCES nj_member(id</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_version</th>
@@ -346,7 +346,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>nj_version_status</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_task</th>
@@ -399,7 +399,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>REFERENCES nj_version(id)</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_task_message</th>
@@ -432,7 +432,7 @@ PostgreSQL поддерживает мощную систему правил д�
     <td>text</td>
   </tr>
 </table>
-
+<br/><br/>
 <table>
   <tr>
     <th align="left">nj_task_history</th>
