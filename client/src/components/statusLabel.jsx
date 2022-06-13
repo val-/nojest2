@@ -6,7 +6,7 @@ import { normalizeUnits } from 'moment';
 const useStyles = makeStyles(theme => ({
   status: { fontWeight: 'bold', background: 'none' },
   status_OPENED: { color: theme.palette.info.light },
-  status_ASSIGNED: { color: theme.palette.success.light },
+  status_ASSIGNED: { color: theme.palette.warning.light },
   status_RESOLVED: { color: theme.palette.warning.light },
   status_REOPENED: { color: theme.palette.error.light },
   status_DONE: { color: theme.palette.success.light },

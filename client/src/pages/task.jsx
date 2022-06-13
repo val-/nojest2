@@ -33,8 +33,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
   },
   media: {
-    whiteSpace: 'pre',
-    padding: theme.spacing(2, 9),
+    //whiteSpace: 'pre',
+    padding: theme.spacing(2, 2),
     background: 'rgba(0,0,0,0.17)',
     borderTop: 'rgba(0,0,0,0.3) 1px solid',
     borderBottom: 'rgba(0,0,0,0.3) 1px solid',
@@ -120,9 +120,9 @@ const TaskPage = () => {
         }
       >
       </CardHeader>
-      {/* <CardMedia className={classes.media}>
+      <CardMedia className={classes.media}>
         { task.description }
-      </CardMedia> */}
+      </CardMedia>
     </Card>
   );
 

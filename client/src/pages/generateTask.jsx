@@ -148,7 +148,7 @@ const CreateTaskPage = () => {
 
     const getJectCodeById = jectId => {
       for (let i=0; i<jectsState.length; i++) {
-        if (jectsState[i].id === jectId) {
+        if (jectsState[i].id == jectId) {
           return jectsState[i].code;
         }
       }
@@ -168,8 +168,10 @@ const CreateTaskPage = () => {
             formState.values.title = resp.title;
             formState.values.description = resp.text;
 
-            backend.createTask(formState.values).then(() => {
-              setGeneratorCount(generatorCountState + 1);
+            backend.createTask({ ...formState.values, jectId }).then(() => {
+              //setTimeout(function () {
+                setGeneratorCount(generatorCountState + 1);
+              //}, 100);
             }, () => {
               setErrorCount(errorCountState + 1);
             });
@@ -202,7 +204,7 @@ const CreateTaskPage = () => {
     }
 
     if (generatorState) {
-      const jectCode = getJectCodeById(formState.values.jectId);
+      const jectCode = getJectCodeById(jectId);
       if (!jectCode) {
         console.log('jectCode not defined!');
       }

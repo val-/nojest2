@@ -5,6 +5,10 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
   ava: { fontWeight: 'bold', color: '#ffffff', textShadow: '1px 1px 2px rgba(0,0,0,0.3), 0 0 1em rgba(0,0,0,0.2)' },
+  ava_1: { background: 'hsl(360, 50%, 52%)' },
+  ava_4: { background: 'hsl(135, 50%, 52%)' },
+  ava_3: { background: 'hsl(270, 50%, 52%)' },
+  ava_2: { background: 'hsl(45, 50%, 52%)' },
   ava_A: { background: 'hsl(360, 50%, 52%)' },
   ava_E: { background: 'hsl(315, 50%, 52%)' },
   ava_H: { background: 'hsl(270, 50%, 52%)' },

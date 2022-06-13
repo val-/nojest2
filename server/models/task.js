@@ -62,7 +62,6 @@ const addTaskHistory = task => new Promise((resolve, reject) => {
                 taskId: row.task_id,
             }),
         );
-        console.log('history: ', history);
         resolve({
             ...task,
             status: history[history.length-1].status,

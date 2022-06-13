@@ -17,6 +17,7 @@ import ScreenLocker from '../components/screenLocker';
 import ConfirmActionPopup from '../components/confirmActionPopup';
 import GanttChart from '../components/ganttChart';
 import JectPic from '../components/jectPic';
+import StatusLabel from '../components/statusLabel';
 import { backendService as backend } from '../services/backendService';
 import { useParams } from 'react-router-dom';
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   cardActionButton: {
-    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   media: {
     whiteSpace: 'pre',
@@ -70,12 +71,19 @@ const useStyles = makeStyles(theme => ({
   tasks: {
     display: 'flex',
     flexWrap: 'wrap',
-    width: theme.spacing(130),
+    width: theme.spacing(180),
     justifyContent: 'center'
   },
   taskCard: {
-    width: theme.spacing(38),
-    margin: theme.spacing(1.5),
+    width: theme.spacing(37),
+    margin: theme.spacing(2),
+    //
+  },
+  cardHeaderTitle: {
+    minHeight: theme.spacing(12),
+  },
+  cardHeader: {
+    
   },
 }));
 
@@ -189,7 +197,7 @@ const JectPage = () => {
             color="primary"
             onClick={() => { openTask(task.id) }}
           >
-            Go to task
+            Go to task {`#${filedsState.code}-${task.id}`}
           </Button>
         </>
       );
@@ -200,11 +208,17 @@ const JectPage = () => {
     <Card square className={classes.taskCard} key={taskIndex}>
       <CardHeader
         className={classes.cardHeader}
-        title={task.title}
-        subheader={`# ${filedsState.code} - ${task.id}`}
+        subheader={
+          <div className={classes.cardHeaderTitle}>
+            {task.title}
+          </div>
+        }
+        title={(
+          <StatusLabel status={task.status}/>
+        )}
       >
       </CardHeader>
-      <CardActions>
+      <CardActions disableSpacing={true}>
         { generateTaskCardActions(task) }
       </CardActions>
     </Card>
