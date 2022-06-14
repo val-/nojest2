@@ -1,7 +1,6 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/styles';
-import { normalizeUnits } from 'moment';
 
 const useStyles = makeStyles(theme => ({
   status: { fontWeight: 'bold', background: 'none' },

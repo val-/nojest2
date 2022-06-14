@@ -5,7 +5,6 @@ import {
   ListItemAvatar,
   ListItemText,
   List,
-  Chip,
 } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import moment from 'moment';

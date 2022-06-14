@@ -148,7 +148,7 @@ const CreateTaskPage = () => {
 
     const getJectCodeById = jectId => {
       for (let i=0; i<jectsState.length; i++) {
-        if (jectsState[i].id == jectId) {
+        if (jectsState[i].id === Number(jectId)) {
           return jectsState[i].code;
         }
       }
@@ -216,7 +216,7 @@ const CreateTaskPage = () => {
     }
 
 
-  }, [initStartedState, generatorState, wikiIndexState, generatorCountState, formState.values, jectsState, errorCountState]);
+  }, [initStartedState, generatorState, wikiIndexState, generatorCountState, formState.values, jectsState, jectId, errorCountState]);
 
   if (!jectsReadyState || !usersReadyState) {
     return <ScreenLocker />;

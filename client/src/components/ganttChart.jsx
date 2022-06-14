@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  Button,
   Typography,
   Box,
 } from '@material-ui/core';
 
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
 import StatusLabel from './statusLabel';
@@ -38,12 +37,13 @@ const useStyles = makeStyles(theme => ({
 export default function GanttChart({ tasks }) {
 
   const classes = useStyles();
+/*
   const history = useHistory();
 
   const openPage = code => {
     history.push(`/${code}`);
   }
-
+*/
   const LineProgress = ({ from, to }) => {
     const w = Math.round(to - from);
     return (

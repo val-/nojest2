@@ -3,12 +3,10 @@ import {
   Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
   Box,
-  Link,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/styles';
@@ -143,7 +141,7 @@ const DashboardPage = props => {
   );
 
 
-  if (!tasksReadyState || !authorizedUserState) {
+  if (!tasksReadyState || !authorizedUserState || !jectsReadyState) {
     return <ScreenLocker />;
   } else {
     return (
