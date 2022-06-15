@@ -169,9 +169,9 @@ const CreateTaskPage = () => {
             formState.values.description = resp.text;
 
             backend.createTask({ ...formState.values, jectId }).then(() => {
-              //setTimeout(function () {
+              setTimeout(function () {
                 setGeneratorCount(generatorCountState + 1);
-              //}, 100);
+              }, 0);
             }, () => {
               setErrorCount(errorCountState + 1);
             });
