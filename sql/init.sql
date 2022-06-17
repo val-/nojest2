@@ -219,9 +219,29 @@ VALUES
   'OPENED'
 ),
 (
+  1,
+  TIMESTAMP '2022-05-06 15:36:38',
+  'ASSIGNED'
+),
+(
+  1,
+  TIMESTAMP '2022-05-07 15:36:38',
+  'RESOLVED'
+),
+(
   2,
   TIMESTAMP '2022-05-09 15:36:38',
   'OPENED'
+),
+(
+  2,
+  TIMESTAMP '2022-05-13 15:36:38',
+  'ASSIGNED'
+),
+(
+  2,
+  TIMESTAMP '2022-05-15 15:36:38',
+  'RESOLVED'
 ),
 (
   3,
@@ -229,8 +249,28 @@ VALUES
   'OPENED'
 ),
 (
+  3,
+  TIMESTAMP '2022-05-18 15:36:38',
+  'ASSIGNED'
+),
+(
+  3,
+  TIMESTAMP '2022-05-20 15:36:38',
+  'RESOLVED'
+),
+(
   4,
   TIMESTAMP '2022-05-19 15:36:38',
   'OPENED'
+),
+(
+  4,
+  TIMESTAMP '2022-05-23 15:36:38',
+  'ASSIGNED'
+),
+(
+  4,
+  TIMESTAMP '2022-05-25 15:36:38',
+  'RESOLVED'
 );
 
